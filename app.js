@@ -33,6 +33,9 @@ app.use("/auth", authRoutes);
 const eventsRoutes = require("./routes/events");
 app.use("/events", eventsRoutes); 
 
+const booksRoutes = require("./routes/books");
+app.use("/books", booksRoutes); 
+
 // ❗ To handle errors. Routes that dont exist or errors that you handle in specfic routes
 require("./error-handling")(app);
 

@@ -1,0 +1,28 @@
+<h1>Books especially for you!</h1>
+
+<div class = 'books-card'>
+
+  {{#each books}}
+    {{!-- image --}}
+    <img src="{{this.volumeInfo.imageLinks.thumbnail}}" alt="{{this.volumeInfo.title}}">
+
+    {{!-- title --}}
+    <h3> Title: {{this.volumeInfo.title}}</h3>
+
+    {{!-- authors --}}
+    <h4> Authors:</h4>
+    {{#each this.volumeInfo.authors}}
+      <p> {{this}} </p>
+    {{/each}}
+
+    <a href="#"> Add to your favorites!</a>
+    <br>
+    <br>
+
+  {{/each}}
+</div>
+
+
+{{!-- {{#each this}}
+    <p> {{this.volumeInfo.title}} </p>
+{{/each}} --}}

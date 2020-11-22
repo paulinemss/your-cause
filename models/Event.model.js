@@ -3,16 +3,23 @@ const { Schema, model } = require("mongoose");
 const eventSchema = new Schema({
   title: String, 
   organiser: String, 
-  date: Date, 
+  startDate: Date,
+  startTime: String, 
+  endDate: Date, 
+  endTime: String, 
   description: String,
-  time: String,
   link: String,
   image: String,
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }, 
+  // PUTTING THE PROPERTY BELOW IN COMMENTS FOR NOW
+
+  // author: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User'
+  // }, 
+  // --> TODO: setup relationships between users & events
+
   category: {
+    type: String,
     enum: ['environment', 'women']
   }
 });

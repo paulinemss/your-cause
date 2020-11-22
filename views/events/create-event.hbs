@@ -1,0 +1,126 @@
+<h1>Create event</h1>
+
+{{#if prefilledEvent}}
+
+<form action="/events/create-event" method="POST" enctype="multipart/form-data">
+
+  <label for="title">Title:</label>
+  <input type="text" name="title" id="title" value="{{prefilledEvent.title}}" required>
+
+  <br>
+
+  <label for="organiser">Organiser:</label>
+  <input type="text" name="organiser" id="organiser" value="{{prefilledEvent.organiser}}" required>
+
+  <br>
+
+  <label for="description">What is your event about?</label>
+  <input type="text" name="description" id="description" value="{{prefilledEvent.description}}" required>
+
+  <br>
+
+  <label for="startDate">Start date:</label>
+  <input type="date" name="startDate" id="startDate" required>
+
+  <label for="startTime">Start time:</label>
+  <input type="time" name="startTime" id="startTime" value="{{prefilledEvent.startTime}}" required>
+
+  <br>
+
+  <label for="endDate">End date:</label>
+  <input type="date" name="endDate" id="endDate" required>
+
+  <label for="endTime">End time:</label>
+  <input type="time" name="endTime" id="endTime" value="{{prefilledEvent.endTime}}" required>
+
+  <br>
+
+  <label for="link">Link to event page:</label>
+  <input type="url" name="link" id="link" value="{{prefilledEvent.link}}" required>
+
+  <br>
+
+  <label for="imageUrl">Event Image:</label>
+  <input type="file" name="imageUrl" accept="image/png, image/jpg">
+
+  <br>
+
+  <label for="category">Category:</label>
+  <select id="category" name="category" required>
+    {{#if (isSelected 'environment' prefilledEvent.category)}}
+    <option value="environment" selected>Environment</option>
+    <option value="women">Women's rights</option>
+    {{else}}
+    <option value="environment">Environment</option>
+    <option value="women" selected>Women's rights</option>
+    {{/if}}
+  </select>
+
+  <br>
+
+  <button type="submit">Submit</button>
+
+</form>
+
+{{else}}
+
+<form action="/events/create-event" method="POST" enctype="multipart/form-data">
+
+  <label for="title">Title:</label>
+  <input type="text" name="title" id="title" required>
+
+  <br>
+
+  <label for="organiser">Organiser:</label>
+  <input type="text" name="organiser" id="organiser" required>
+
+  <br>
+
+  <label for="description">What is your event about?</label>
+  <input type="text" name="description" id="description" required>
+
+  <br>
+
+  <label for="startDate">Start date:</label>
+  <input type="date" name="startDate" id="startDate" required>
+
+  <label for="startTime">Start time:</label>
+  <input type="time" name="startTime" id="startTime" required>
+
+  <br>
+
+  <label for="endDate">End date:</label>
+  <input type="date" name="endDate" id="endDate" required>
+
+  <label for="endTime">End time:</label>
+  <input type="time" name="endTime" id="endTime" required>
+
+  <br>
+
+  <label for="link">Link to event page:</label>
+  <input type="url" name="link" id="link" required>
+
+  <br>
+
+  <label for="imageUrl">Event Image:</label>
+  <input type="file" name="imageUrl" accept="image/png, image/jpg">
+
+  <br>
+
+  <label for="category">Category:</label>
+  <select id="category" name="category" required>
+    <option value="environment">Environment</option>
+    <option value="women">Women's rights</option>
+  </select>
+
+  <br>
+
+  <button type="submit">Submit</button>
+
+</form>
+
+{{/if}}
+
+{{#if errorMessage}}
+<div>{{errorMessage}}</div>
+{{/if}}

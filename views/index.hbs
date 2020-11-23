@@ -1,7 +1,13 @@
-<h1>WELCOME!</h1>
+<h1>YOUR CAUSE</h1>
 
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+{{#if user}}
+
+<a href="/dash">Dashboard</a> |
+<a href="/auth/logout">Logout</a>
+
+{{else}}
 
 <a href="/auth/login">Login</a> |
 <a href="/auth/signup">Signup</a>
+
+{{/if}}

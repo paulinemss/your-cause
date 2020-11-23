@@ -8,23 +8,14 @@ const userSchema = new Schema({
   },
   password: String,
   email: String, 
-  profilePic: String, 
+  profilePic: {
+    type: String,
+    default: "https://res.cloudinary.com/dffhi2onp/image/upload/v1606127208/Sans_titre_3_cfj8uo.png"
+  }, 
   interest: {
     type: String,
     enum: ['environment', 'women']
   },
-  eventsCreated: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event'
-    }
-  ],
-  eventsAttended: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Event'
-    }
-  ],
   savedBooks: [
     {
       type: mongoose.Schema.Types.ObjectId,

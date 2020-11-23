@@ -7,26 +7,22 @@
 {{#if events}}
 
 {{#each events}}
-<div class="event-card">
+<div style="background-color:linen;" class="event-card">
 
   <h3>{{title}}</h3>
   <h4>Organiser: {{organiser}}</h4>
 
-  <img src="{{image}}" alt="{{title}} event image">
+  <br>
+
+  <img style="height:200px;" src="{{image}}" alt="{{title}} event image">
 
   <p>{{description}}</p>
 
   {{!-- --> TODO: format correctly the dates below  --}}
-
   <p>From {{startDate}} to {{endDate}}</p>
 
-  <a href="{{link}}" target="_blank">Link for more information</a>
+  <a href="/events/{{_id}}">More info</a>
   <p><i>Category: {{category}}</i></p>
-
-  {{!-- --> TODO: the two links below should only show if current user is the one who has created this event in the first place  --}}
-
-  <a href="/events/edit-event/{{_id}}">Edit event</a> |
-  <a href="/events/delete-event/{{_id}}">Delete event</a>
 
 </div>
 {{/each}}

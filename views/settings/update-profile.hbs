@@ -1,0 +1,51 @@
+<h1>Update Profile</h1>
+
+<form action="/settings/update-profile" method="POST" enctype="multipart/form-data">
+
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" value="{{user.username}}" required>
+
+  <br>
+
+  <label for="email">Email</label>
+  <input type="text" id="email" name="email" value="{{user.email}}" required>
+
+  <br>
+
+  <label for="profilePic">Profile picture</label>
+  <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
+
+  <br>
+
+  <label for="interest">Interest</label>
+
+  {{#if (isSelected 'environment' user.interest)}}
+
+  <input type="radio" id="environment" name="interest" value="environment" checked="checked">
+  <label for="environment">Environmental action</label>
+
+  <input type="radio" id="women" name="interest" value="women">
+  <label for="women">Women's rights</label>
+
+  {{else}}
+
+  <input type="radio" id="environment" name="interest" value="environment">
+  <label for="environment">Environmental action</label>
+
+  <input type="radio" id="women" name="interest" value="women" checked="checked">
+  <label for="women">Women's rights</label>
+
+  {{/if}}
+
+  <br>
+
+  <button type="submit">Submit</button>
+</form>
+
+{{#if errorMessage}}
+<p>{{errorMessage}}</p>
+{{/if}}
+
+{{#if message}}
+<p>{{message}}</p>
+{{/if}}

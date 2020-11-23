@@ -12,18 +12,18 @@
     <h2>All events:</h2>
     {{#if events}}
     {{#each events}}
-    <div class="card-event-lg">
-      <div class="card-event_left">
+    <div class="card-lg">
+      <div class="card_left">
         <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
       </div>
-      <div class="card-event_middle">
+      <div class="card_middle">
         <h3>{{title}}</h3>
         <h4>Organised by {{organiser}}</h4>
         <p>{{dateString}}</p>
         <p>Description: {{description}}</p>
         <p><a href="/events/{{_id}}">More info</a></p>
       </div>
-      <div class="card-event_right">
+      <div class="card_right">
         <i>Category: {{category}}</i>
       </div>
     </div>
@@ -36,7 +36,21 @@
 
   </div>
 
-  <br>
+  <div class="news-all">
 
-  <a href="/auth/logout">Logout</a>
+    <h2>All news:</h2>
+    {{#each news}}
+    <div class="card-lg">
+      <div class="card-middle">
+        <h3>{{title}}</h3>
+        <h4>Published: {{pubDate}}</h4>
+        <p>{{contentSnippet}}</p>
+        <a href="{{link}}" target="_blank">Read more</a>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+
+  <br>
 </div>

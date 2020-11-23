@@ -20,6 +20,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^4.0.0",
+    "rss-parser": "^3.9.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {

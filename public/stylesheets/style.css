@@ -50,12 +50,36 @@ body {
   margin-bottom: 10px;
 }
 
+.main-nav__bottom a {
+  margin-top: 10px;
+}
+
 .main-nav__top ul {
   list-style-type: none;
 }
 
 .main-nav__icon {
   width: 40px;
+}
+
+/* CARD CSS */
+
+.card-lg {
+  display: flex;
+  margin-top: 30px;
+  background:    radial-gradient(
+      circle at top left,
+      #fff,
+      #f7f8fa 20%
+    );
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.03);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.card_right {
+  margin-left: auto;
+  opacity: 0.5;
 }
 
 /* EVENTS CSS */
@@ -68,11 +92,9 @@ body {
   width: 80%;
 }
 
-.card-event-lg {
-  display: flex;
-  margin-top: 30px;
-}
-
 .event-image {
   width: 200px;
+  height: 100%;
+  object-fit: cover;
+  margin-right: 20px;
 }

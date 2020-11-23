@@ -1,0 +1,61 @@
+<nav class="main-nav">
+
+  <div class="main-nav__top">
+    <div class="main-nav__logo">Your Cause.</div>
+
+    <ul>
+      <li>
+        <a class="{{#ifEquals active 'dash'}}main-nav__active{{/ifEquals}}" href="/dash">
+          <div class="main-nav__icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="main-nav__menu">
+            Home
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="{{#ifEquals active 'books'}}main-nav__active{{/ifEquals}}" href="/books">
+          <div class="main-nav__icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="main-nav__menu">
+            Book
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="{{#ifEquals active 'events'}}main-nav__active{{/ifEquals}}" href="/events">
+          <div class="main-nav__icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="main-nav__menu">
+            Events
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="{{#ifEquals active 'news'}}main-nav__active{{/ifEquals}}" href="/news">
+          <div class="main-nav__icon">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="main-nav__menu">
+            News
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-nav__bottom">
+    <a class="{{#ifEquals active 'settings'}}main-nav__active{{/ifEquals}}" href="/settings">
+      <div class="main-nav__icon">
+        <i class="fas fa-cog"></i>
+      </div>
+      <div class="main-nav__menu">
+        Settings
+      </div>
+    </a>
+  </div>
+
+</nav>

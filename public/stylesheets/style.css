@@ -7,17 +7,61 @@
   font-family: 'Noto Sans JP'
 }
 
+body {
+  background-color: #f4f5f7;
+}
+
 /*# sourceMappingURL=style.css.map */
 
+/* MAIN NAV CSS */
+
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  height: 100vh;
+  width: 200px;
+  background: #fff;
+  padding: 40px 30px;
+}
+
+.main-nav a {
+  color: #8a8a8a;
+  font-size: 18px;
+  text-decoration: none;
+  display: flex;
+}
+
+.main-nav__active * {
+  color: red;
+}
+
+.main-nav__logo {
+  margin-bottom: 30px;
+}
+
+.main-nav__top li {
+  margin-bottom: 10px;
+}
+
+.main-nav__top ul {
+  list-style-type: none;
+}
+
+.main-nav__icon {
+  width: 40px;
+}
 
 /* EVENTS CSS */
 
 .events-header {
-  margin: 30px 30px 0 30px;
+  margin-left: 200px;
 }
 
 .events-main {
   display: flex;
+  margin-left: 200px;
 }
 
 .events-all {

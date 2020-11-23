@@ -1,29 +1,30 @@
 const router = require('express').Router();
-const axios = require('axios');
+const Book = require('../models/Book.model')
 
 // TODO
 // 1. See if user is loggedin
 // 2. check users preferences
-
-// GET GOOGLE BOOKS API
-const subject = 'feminism'; // this should come from user
-//const subject = 'climate+change' 
-const startIndex = 0;
-const maxResults = 6;
-const urlGoogleBooks = `https://www.googleapis.com/books/v1/volumes?q=subject:${subject}&startIndex=${startIndex}&maxResults=${maxResults}&key=${process.env.BOOKS_KEY}`
+// 3. Need the first 10 books of today
 
 
+/* GET feed page */
 router.get('/', (req,res,next) => {
-  //console.log(urlGoogleBooks)
-  axios.get(urlGoogleBooks)
-  .then( data => {
-    const books = data.data.items;
-   // console.log(books)
-    res.render('books/feed', {books: books})
+  // category from user sessions
+  Book
+  .find({ category: 'women' }) 
+  .then(books => {
+    console.log('Books from db: ',books);
+    res.render('books/feed', {books: books});
   })
   .catch(err => console.log(err))
 })
 
-module.exports = router;
+/// BOOK PAGE /// 
+router.get('/:id', (req,res,next) => {
+  const { id } = req.params;
+  console.log(id)
 
+  res.render('books/book-page')
+})
 
+module.exports = router

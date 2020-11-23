@@ -1,21 +1,28 @@
-<h1>Books especially for you!</h1>
+<h1> Books especially for you!</h1>
 
 <div class = 'books-card'>
 
   {{#each books}}
     {{!-- image --}}
-    <img src="{{this.volumeInfo.imageLinks.thumbnail}}" alt="{{this.volumeInfo.title}}">
+    <img src="{{this.imageUrl}}" alt="{{this.title}}">
 
     {{!-- title --}}
-    <h3> Title: {{this.volumeInfo.title}}</h3>
+    <h2> {{this.title}}</h2>
 
     {{!-- authors --}}
     <h4> Authors:</h4>
-    {{#each this.volumeInfo.authors}}
+    {{#each this.authors}}
       <p> {{this}} </p>
     {{/each}}
 
-    <a href="#"> Add to your favorites!</a>
+    <a href="/books/{{this._id}}"> Read more...</a>  
+    <br>
+    <br>
+
+    {{!-- buttons --}}
+    <button type="button"> Like </button>
+    <button type="button"> Already read! </button>
+    
     <br>
     <br>
 

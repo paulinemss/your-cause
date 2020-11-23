@@ -33,3 +33,43 @@
 .event-image {
   width: 200px;
 }
+
+
+
+/* BOOKS CSS */
+.book-page {
+  width: 100vw;
+  display: flex;
+}
+
+.new-books {
+  border: 5px solid lightpink;
+  width: 40%;
+  margin: 30px 30px 0 30px;
+}
+
+.book-card {
+  /* background-color: orange; */
+  display: flex;
+  padding: 0 10px;
+}
+
+.book-info {
+  margin-left: 30px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between  */
+}
+
+.right-panel {
+  display:flex;
+  flex-direction: column;
+}
+
+.saved-books, 
+.read-books {
+  margin: 30px 30px 0 30px;
+  background-color: pink;
+  width: 40vw;
+  height: 30vh;
+}

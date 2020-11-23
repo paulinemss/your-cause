@@ -1,40 +1,50 @@
-<h1>Events</h1>
+{{!-- MAIN EVENTS PAGE --}}
 
-<h2>All Events</h2>
-
-<a href="/events/create-event">Create event</a>
-
-{{#if events}}
-
-{{#each events}}
-<div class="event-card">
-
-  <h3>{{title}}</h3>
-  <h4>Organiser: {{organiser}}</h4>
-
-  <img src="{{image}}" alt="{{title}} event image">
-
-  <p>{{description}}</p>
-
-  {{!-- --> TODO: format correctly the dates below  --}}
-
-  <p>From {{startDate}} to {{endDate}}</p>
-
-  <a href="{{link}}" target="_blank">Link for more information</a>
-  <p><i>Category: {{category}}</i></p>
-
-  {{!-- --> TODO: the two links below should only show if current user is the one who has created this event in the first place  --}}
-
-  <a href="/events/edit-event/{{_id}}">Edit event</a> |
-  <a href="/events/delete-event/{{_id}}">Delete event</a>
-
-</div>
-{{/each}}
-
-{{else}}
-
-<div>
-  Create a new event now!
+<div class="events-header">
+  <h1>Events</h1>
+  <a href="/events/create-event">Create event</a>
 </div>
 
-{{/if}}
+<div class="events-main">
+
+  <div class="events-all">
+
+    {{#if events}}
+    {{#each events}}
+    <div class="card-event">
+      <div class="card-event_left">
+        <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+      </div>
+      <div class="card-event_middle">
+        <h2>{{title}}</h2>
+        <h3>Organised by {{organiser}}</h3>
+        <p>From {{startDate}} to {{endDate}}</p>
+        <p>Description: {{description}}</p>
+        <p><a href="/events/{{_id}}">More info</a></p>
+      </div>
+      <div class="card-event_right">
+        <i>Category: {{category}}</i>
+      </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <div class="card-none">
+      Create a new event now!
+    </div>
+    {{/if}}
+
+  </div>
+
+  <div class="events-user">
+
+    <div class="events-attending">
+      <h4>Placeholder: events the user is attending soon</h4>
+    </div>
+
+    <div class="events-attended">
+      <h4>Placeholder: events the user has attended</h4>
+    </div>
+
+  </div>
+
+</div>

@@ -11,14 +11,16 @@ const eventSchema = new Schema({
   description: String,
   link: String,
   image: String,
-  // PUTTING THE PROPERTY BELOW IN COMMENTS FOR NOW
-
-  // author: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User'
-  // }, 
-  // --> TODO: setup relationships between users & events
-
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  attendees: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   category: {
     type: String,
     enum: ['environment', 'women']

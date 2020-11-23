@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const uploader = require('../config/cloudinary.config.js');
 
 // ? Package to will handle encryption of password
 const bcrypt = require('bcryptjs');
@@ -18,61 +19,73 @@ router.get('/signup', shouldNotBeLoggedIn, (req, res) => {
   res.render('auth/signup');
 });
 
-router.post('/signup', shouldNotBeLoggedIn, (req, res) => {
-  const { username, password } = req.body;
+router.post('/signup', shouldNotBeLoggedIn, uploader.single('profilePic'), (req, res) => {
+  const { username, 
+    email, 
+    interest, 
+    newPassword,
+    confirmPassword 
+  } = req.body;
 
-  if (!username) {
-    return res.status(400).render('signup', { errorMessage: 'Please provide your username' });
+  let profilePic = "https://res.cloudinary.com/dffhi2onp/image/upload/v1606127208/Sans_titre_3_cfj8uo.png";
+
+  if (req.file) {
+    profilePic = req.file.path; 
   }
 
-  if (password.length < 8) {
-    return res.status(400).render('signup', {
+  if (newPassword.length < 8) {
+    return res.status(400).render('auth/signup', {
       errorMessage: 'Your password needs to be at least 8 characters'
     });
   }
 
-  //   ! This use case is using a regular expression to control for special characters and min length
-  /*
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
-  if (!regex.test(password)) {
-    return res.status(400).render("signup", {
+  if (!regex.test(newPassword)) {
+    return res.status(400).render("auth/signup", {
       errorMessage:
         "Password needs to have at least 8 chars and must contain at least one number, one lowercase and one uppercase letter.",
     });
   }
 
-  */
+  if (newPassword !== confirmPassword) {
+    return res.status(400).render('auth/signup', {
+      errorMessage: 'You have not entered the same password.'
+    });
+  }
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ username }).then(found => {
     if (found) {
-      return res.status(400).render('signup', { errorMessage: 'Username already taken' });
+      return res.status(400).render('auth/signup', { errorMessage: 'Username already taken' });
     }
     return bcrypt
       .genSalt(saltRounds)
-      .then(salt => bcrypt.hash(password, salt))
+      .then(salt => bcrypt.hash(confirmPassword, salt))
       .then(hashedPassword => {
         return User.create({
           username,
+          email,
+          interest,
+          profilePic,
           password: hashedPassword
         });
       })
       .then(user => {
         // binds the user to the session object
         req.session.user = user;
-        res.redirect('/');
+        res.redirect('/dash');
       })
       .catch(error => {
         if (error instanceof mongoose.Error.ValidationError) {
-          return res.status(400).render('signup', { errorMessage: error.message });
+          return res.status(400).render('auth/signup', { errorMessage: error.message });
         }
         if (error.code === 11000) {
-          return res.status(400).render('signup', {
+          return res.status(400).render('auth/signup', {
             errorMessage: 'Username need to be unique. THe username you chose is already in used.'
           });
         }
-        return res.status(500).render('signup', { errorMessage: error.message });
+        return res.status(500).render('auth/signup', { errorMessage: error.message });
       });
   });
 });
@@ -84,13 +97,8 @@ router.get('/login', shouldNotBeLoggedIn, (req, res) => {
 router.post('/login', shouldNotBeLoggedIn, (req, res) => {
   const { username, password } = req.body;
 
-  if (!username) {
-    return res.status(400).render('login', { errorMessage: 'Please provide your username' });
-  }
-
-  //   * Here we use the same logic as above - either length based parameters or we check the strength of a password
   if (password.length < 8) {
-    return res.status(400).render('login', {
+    return res.status(400).render('auth/login', {
       errorMessage: 'Your password needs to be at least 8 characters'
     });
   }
@@ -98,25 +106,21 @@ router.post('/login', shouldNotBeLoggedIn, (req, res) => {
   User.findOne({ username })
     .then(user => {
       if (!user) {
-        return res.status(400).render('login', { errorMessage: 'Wrong credentials' });
+        return res.status(400).render('auth/login', { errorMessage: 'Wrong credentials' });
       }
 
-      return bcrypt.compare(password, user.password);
-    })
-    .then(isSamePassword => {
-      if (!isSamePassword) {
-        return res.status(400).render('login', { errorMessage: 'Wrong credentials' });
-      }
-      req.session.user = user;
-      // req.session.user = user._id ! better and safer but in this case we saving the entire user object
-      return res.redirect('/');
+      bcrypt.compare(password, user.password).then(isSamePassword => {
+        if (!isSamePassword) {
+          return res.status(400).render('auth/login', { errorMessage: 'Wrong credentials' });
+        }
+        req.session.user = user;
+        return res.redirect('/dash');
+      })
+
     })
     .catch(err => {
       console.log(err);
-      // in this case we are sending the error handling to the error handling middleware that is defined in the error handling file
-      // you can just as easily run the res.status that is commented out below
-      next(err);
-      // return res.status(500).render("login", { errorMessage: err.message });
+      return res.status(500).render("auth/login", { errorMessage: err.message });
     });
 });
 

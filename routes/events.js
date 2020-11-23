@@ -22,12 +22,42 @@ function formatDate(date) {
   return `${d.getFullYear()}-${month}-${day}`;
 }
 
+/* Helper function to filter events based on the user's interest */ 
+function getOnlyInterestingEvents(arr, interest) {
+  return arr.filter(event => {
+    return event.category === interest; 
+  })
+}
+
+/* Helper function to filter outdated events from events array */ 
+function removeOldEvents(arr) {
+  return arr.filter(event => {
+    let now = new Date();
+    let eventStart = new Date(event.startDate); 
+    return eventStart >= now; 
+  })
+}
+
+/* Helper function to sort events array by date */ 
+function sortEvents(arr) {
+  return arr.sort((a, b) => {
+    return new Date(a.startDate) - new Date(b.startDate);
+  });
+}
+
 /* GET main events page - feed of all events */ 
 router.get('/', isLoggedIn, (req, res, next) => {
+  const { user } = req.session; 
+
   Event
     .find()
     .then(foundEvents => {
-      res.render('events/feed', { events: foundEvents });
+
+      const onlyInterest = getOnlyInterestingEvents(foundEvents, user.interest);
+      const withoutOldEvents = removeOldEvents(onlyInterest);
+      const sortedEvents = sortEvents(withoutOldEvents);
+
+      res.render('events/feed', { events: sortedEvents });
     })
     .catch(err => {
       console.log('error finding events', err); 

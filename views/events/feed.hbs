@@ -2,50 +2,20 @@
 
 {{> mainNav active='events' }}
 
-<div class="events-header">
-  <h1>Events</h1>
-  <a href="/events/create-event">Create event</a>
-</div>
-
-<div class="events-main">
-
-  <div class="events-all">
-
-    <h2>All events:</h2>
-    {{#if mainEvents}}
-    {{#each mainEvents}}
-    <div class="card-event-lg">
-      <div class="card-event_left">
-        <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
-      </div>
-      <div class="card-event_middle">
-        <h3>{{title}}</h3>
-        <h4>Organised by {{organiser}}</h4>
-        <p>{{dateString}}</p>
-        <p>Description: {{description}}</p>
-        <p><a href="/events/{{_id}}">More info</a></p>
-      </div>
-      <div class="card-event_right">
-        <i>Category: {{category}}</i>
-      </div>
-    </div>
-    {{/each}}
-    {{else}}
-    <div class="card-none-lg">
-      Create a new event now!
-    </div>
-    {{/if}}
-
+<div class="wrapper">
+  <div class="events-header">
+    <h1>Events</h1>
+    <a href="/events/create-event">Create event</a>
   </div>
 
-  <div class="events-user">
+  <div class="events-main">
 
-    <div class="events-attending">
+    <div class="events-all">
 
-      <h2>Events you are attending:</h2>
-      {{#if eventsAttending}}
-      {{#each eventsAttending}}
-      <div class="card-event-sm">
+      <h2>All events:</h2>
+      {{#if mainEvents}}
+      {{#each mainEvents}}
+      <div class="card-event-lg">
         <div class="card-event_left">
           <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
         </div>
@@ -62,42 +32,74 @@
       </div>
       {{/each}}
       {{else}}
-      <div class="card-none-sm">
-        You are not attending any event.
+      <div class="card-none-lg">
+        Create a new event now!
       </div>
       {{/if}}
 
     </div>
 
-    <div class="events-created">
+    <div class="events-user">
 
-      <h2>Your events:</h2>
-      {{#if eventsCreated}}
-      {{#each eventsCreated}}
-      <div class="card-event-sm">
-        <div class="card-event_left">
-          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+      <div class="events-attending">
+
+        <h2>Events you are attending:</h2>
+        {{#if eventsAttending}}
+        {{#each eventsAttending}}
+        <div class="card-event-sm">
+          <div class="card-event_left">
+            <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+          </div>
+          <div class="card-event_middle">
+            <h3>{{title}}</h3>
+            <h4>Organised by {{organiser}}</h4>
+            <p>{{dateString}}</p>
+            <p>Description: {{description}}</p>
+            <p><a href="/events/{{_id}}">More info</a></p>
+          </div>
+          <div class="card-event_right">
+            <i>Category: {{category}}</i>
+          </div>
         </div>
-        <div class="card-event_middle">
-          <h3>{{title}}</h3>
-          <h4>Organised by {{organiser}}</h4>
-          <p>{{dateString}}</p>
-          <p>Description: {{description}}</p>
-          <p><a href="/events/{{_id}}">More info</a></p>
+        {{/each}}
+        {{else}}
+        <div class="card-none-sm">
+          You are not attending any event.
         </div>
-        <div class="card-event_right">
-          <i>Category: {{category}}</i>
-        </div>
+        {{/if}}
+
       </div>
-      {{/each}}
-      {{else}}
-      <div class="card-none-sm">
-        You haven't created any event.
+
+      <div class="events-created">
+
+        <h2>Your events:</h2>
+        {{#if eventsCreated}}
+        {{#each eventsCreated}}
+        <div class="card-event-sm">
+          <div class="card-event_left">
+            <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+          </div>
+          <div class="card-event_middle">
+            <h3>{{title}}</h3>
+            <h4>Organised by {{organiser}}</h4>
+            <p>{{dateString}}</p>
+            <p>Description: {{description}}</p>
+            <p><a href="/events/{{_id}}">More info</a></p>
+          </div>
+          <div class="card-event_right">
+            <i>Category: {{category}}</i>
+          </div>
+        </div>
+        {{/each}}
+        {{else}}
+        <div class="card-none-sm">
+          You haven't created any event.
+        </div>
+        {{/if}}
+
       </div>
-      {{/if}}
 
     </div>
 
   </div>
-
 </div>

@@ -11,6 +11,11 @@ body {
   background-color: #f4f5f7;
 }
 
+.wrapper {
+  margin-left: 200px;
+  padding: 30px;
+}
+
 /*# sourceMappingURL=style.css.map */
 
 /* MAIN NAV CSS */
@@ -55,18 +60,12 @@ body {
 
 /* EVENTS CSS */
 
-.events-header {
-  margin-left: 200px;
-}
-
 .events-main {
   display: flex;
-  margin-left: 200px;
 }
 
 .events-all {
   width: 80%;
-  margin: 0 30px; 
 }
 
 .card-event-lg {

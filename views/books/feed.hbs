@@ -21,9 +21,9 @@
           <a href="/books/{{this._id}}"> Read more...</a> 
   
           <br>
-  
-          <button type="button"> Like </button>
-          <button type="button"> Already read! </button>
+
+          <a href="/books/like-book/{{this.id}}"> Like </a>
+          <a href="/books/read-book/{{this.id}}"> Already read! </a>
   
         </div>
       </div>
@@ -38,22 +38,22 @@
 
     <div class = 'saved-books'>
       <h2>Saved books</h2>
-      <ul>
-        <li> Your favorite book</li>
-
-        {{#if favorites }}
-        
-        <li></li>
-        {{/if}}
+      {{#each savedBooks}}
+        <li>
+          <a href="/books/{{this._id}}"> {{this.title}} </a>
+        </li>
+      {{/each}}
 
       </ul>
     </div>
 
     <div class = 'read-books'>
       <h2>Already read!</h2>
-       <ul>
-        <li> I already read this book</li>
-      </ul>
+       {{#each readBooks}}
+        <li>
+          <a href="/books/{{this._id}}"> {{this.title}} </a>
+        </li>
+      {{/each}}
     </div>
 
   </div>

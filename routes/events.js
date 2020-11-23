@@ -4,46 +4,18 @@ const router  = express.Router();
 const uploader = require('../config/cloudinary.config.js');
 const Event = require('../models/Event.model');
 
-/* Middlewares */ 
+/* Importing middlewares */ 
 const shouldNotBeLoggedIn = require('../middlewares/shouldNotBeLoggedIn');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 
-/* Helper function to format correctly the date objects */ 
-function formatDate(date) {
-  const d = new Date(date);
-  let month = d.getMonth() + 1;
-  let day = d.getDate(); 
-  if (month.toString().length < 2) {
-    month = `0${month}`; 
-  }
-  if (day.toString().length < 2) {
-    day = `0${day}`; 
-  }
-  return `${d.getFullYear()}-${month}-${day}`;
-}
-
-/* Helper function to filter events based on the user's interest */ 
-function getOnlyInterestingEvents(arr, interest) {
-  return arr.filter(event => {
-    return event.category === interest; 
-  })
-}
-
-/* Helper function to filter outdated events from events array */ 
-function removeOldEvents(arr) {
-  return arr.filter(event => {
-    let now = new Date();
-    let eventStart = new Date(event.startDate); 
-    return eventStart >= now; 
-  })
-}
-
-/* Helper function to sort events array by date */ 
-function sortEvents(arr) {
-  return arr.sort((a, b) => {
-    return new Date(a.startDate) - new Date(b.startDate);
-  });
-}
+/* Importing helper functions */
+const { formatDate,
+getOnlyInterestingEvents,
+removeOldEvents,
+sortEvents,
+findEventsCreatedByUser,
+findEventsUserIsAttending,
+getDateString } = require('../helpers-function/events');
 
 /* GET main events page - feed of all events */ 
 router.get('/', isLoggedIn, (req, res, next) => {
@@ -51,16 +23,27 @@ router.get('/', isLoggedIn, (req, res, next) => {
 
   Event
     .find()
+    .populate('attendees')
+    .populate('author')
     .then(foundEvents => {
 
-      const onlyInterest = getOnlyInterestingEvents(foundEvents, user.interest);
-      const withoutOldEvents = removeOldEvents(onlyInterest);
+      /* sorting the array of found events */ 
+      const withoutOldEvents = removeOldEvents(foundEvents);
       const sortedEvents = sortEvents(withoutOldEvents);
 
-      res.render('events/feed', { events: sortedEvents });
+      /* finding all events for the main feed */ 
+      const mainEvents = getOnlyInterestingEvents(sortedEvents, user.interest);
+
+      /* finding all events the user is attending */ 
+      const eventsAttending = findEventsUserIsAttending(sortedEvents, user._id);
+  
+      /* finding all events the user has created */ 
+      const eventsCreated = findEventsCreatedByUser(sortedEvents, user._id);
+
+      res.render('events/feed', { mainEvents, eventsAttending, eventsCreated });
     })
     .catch(err => {
-      console.log('error finding events', err); 
+      console.log('error finding all events', err); 
     })
 });
 
@@ -82,15 +65,42 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
     category 
   } = req.body; 
   const { user } = req.session;
- 
-  // --> TODO: VERIFY FORM INPUT BEFORE CREATING EVENT
-  // For instance, event cannot be in the past,
-  // endDate must be after startDate,
-  // endTime must be after startTime, etc. 
+  const eventImg = req.file; 
+  const dateString = getDateString(req.body);
 
-  // if (write condition) {
-  //   res.redirect('/events/feed', { prefilledEvent: req.body });
-  // }
+  /* error handling if the user made mistakes with dates */
+  const now = new Date(); 
+  const start = new Date(startDate); 
+  const end = new Date(endDate); 
+
+  if (start < now && start.toDateString() !== now.toDateString()) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your start date cannot be in the past.'
+    });
+  }
+
+  if (start > end) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your end date must be after the start date, or on the same day.'
+    });
+  }
+
+  if (start.toDateString() === end.toDateString() && startTime > endTime) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your end time must be after the start time.'
+    });
+  }
+
+  /* error handling if the user did not add an image */ 
+  if (!eventImg) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'You need to add an image.'
+    });
+  }
 
   Event
     .create({
@@ -102,8 +112,9 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
       endDate,
       endTime,
       link,
+      dateString,
       author: user._id,
-      image: req.file.path,
+      image: eventImg.path,
       category
     })
     .then(createdEvent => {
@@ -152,13 +163,38 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
     category 
   } = req.body; 
   const { user } = req.session;
+  const eventImg = req.file; 
+  const dateString = getDateString(req.body);
 
-  // --> TODO: VERIFY FORM INPUT BEFORE UPDATING EVENT
-  // For instance, event cannot be in the past,
-  // endDate must be after startDate,
-  // endTime must be after startTime, etc. 
+  /* error handling if the user made mistakes with dates */
+  const now = new Date(); 
+  const start = new Date(startDate); 
+  const end = new Date(endDate); 
 
-  Event
+  if (start < now && start.toDateString() !== now.toDateString()) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your start date cannot be in the past.'
+    });
+  }
+
+  if (start > end) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your end date must be after the start date, or on the same day.'
+    });
+  }
+
+  if (start.toDateString() === end.toDateString() && startTime > endTime) {
+    return res.render('events/create-event', { 
+      prefilledEvent: req.body, 
+      errorMessage: 'Your end time must be after the start time.'
+    });
+  }
+
+  /* error handling if the user did not add an image */ 
+  if (!eventImg) {
+    Event
     .findByIdAndUpdate(eventID, {
       title,
       organiser,
@@ -168,8 +204,8 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       endDate,
       endTime,
       link,
+      dateString,
       author: user._id,
-      image: req.file.path,
       category
     }, { new: true })
     .then(updatedEvent => {
@@ -179,6 +215,30 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
     .catch(err => {
       console.log('error updating event', err);
     })
+  } else {
+    Event
+    .findByIdAndUpdate(eventID, {
+      title,
+      organiser,
+      description,
+      startDate,
+      startTime,
+      endDate,
+      endTime,
+      link,
+      dateString,
+      author: user._id,
+      image: eventImg.path,
+      category
+    }, { new: true })
+    .then(updatedEvent => {
+      console.log('updatedEvent:', updatedEvent);
+      res.redirect('/events/');
+    })
+    .catch(err => {
+      console.log('error updating event', err);
+    })
+  }
 });
 
 /* GET delete event */

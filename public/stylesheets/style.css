@@ -21,11 +21,11 @@
 }
 
 .events-all {
-  width: 60%;
+  width: 80%;
   margin: 0 30px; 
 }
 
-.card-event {
+.card-event-lg {
   display: flex;
   margin-top: 30px;
 }

@@ -9,16 +9,17 @@
 
   <div class="events-all">
 
-    {{#if events}}
-    {{#each events}}
-    <div class="card-event">
+    <h2>All events:</h2>
+    {{#if mainEvents}}
+    {{#each mainEvents}}
+    <div class="card-event-lg">
       <div class="card-event_left">
         <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
       </div>
       <div class="card-event_middle">
-        <h2>{{title}}</h2>
-        <h3>Organised by {{organiser}}</h3>
-        <p>From {{startDate}} to {{endDate}}</p>
+        <h3>{{title}}</h3>
+        <h4>Organised by {{organiser}}</h4>
+        <p>{{dateString}}</p>
         <p>Description: {{description}}</p>
         <p><a href="/events/{{_id}}">More info</a></p>
       </div>
@@ -28,7 +29,7 @@
     </div>
     {{/each}}
     {{else}}
-    <div class="card-none">
+    <div class="card-none-lg">
       Create a new event now!
     </div>
     {{/if}}
@@ -38,11 +39,61 @@
   <div class="events-user">
 
     <div class="events-attending">
-      <h4>Placeholder: events the user is attending soon</h4>
+
+      <h2>Events you are attending:</h2>
+      {{#if eventsAttending}}
+      {{#each eventsAttending}}
+      <div class="card-event-sm">
+        <div class="card-event_left">
+          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+        </div>
+        <div class="card-event_middle">
+          <h3>{{title}}</h3>
+          <h4>Organised by {{organiser}}</h4>
+          <p>{{dateString}}</p>
+          <p>Description: {{description}}</p>
+          <p><a href="/events/{{_id}}">More info</a></p>
+        </div>
+        <div class="card-event_right">
+          <i>Category: {{category}}</i>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="card-none-sm">
+        You are not attending any event.
+      </div>
+      {{/if}}
+
     </div>
 
-    <div class="events-attended">
-      <h4>Placeholder: events the user has attended</h4>
+    <div class="events-created">
+
+      <h2>Your events:</h2>
+      {{#if eventsCreated}}
+      {{#each eventsCreated}}
+      <div class="card-event-sm">
+        <div class="card-event_left">
+          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+        </div>
+        <div class="card-event_middle">
+          <h3>{{title}}</h3>
+          <h4>Organised by {{organiser}}</h4>
+          <p>{{dateString}}</p>
+          <p>Description: {{description}}</p>
+          <p><a href="/events/{{_id}}">More info</a></p>
+        </div>
+        <div class="card-event_right">
+          <i>Category: {{category}}</i>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="card-none-sm">
+        You haven't created any event.
+      </div>
+      {{/if}}
+
     </div>
 
   </div>

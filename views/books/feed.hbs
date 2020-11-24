@@ -1,63 +1,67 @@
-<h1> Books especially for you!</h1>
-<br>
-<div class = 'book-page'>
-  <div class = 'new-books'>
-  
-    <h2> New books for you!</h2>
-    <br>
-  
-    {{#each books}}
-      <div class = 'book-card'>
-        <img src="{{this.imageUrl}}" alt="{{this.title}}">
-  
-        <div class = 'book-info'>
-          <h3> {{this.title}}</h3>
-  
-          <h4> Authors: </h4>
-          {{#each this.authors}}
-            <p> {{this}} </p>
-          {{/each}}
-  
-          <a href="/books/{{this._id}}"> Read more...</a> 
-  
-          <br>
+{{> mainNav active='books' }}
 
-          <a href="/books/like-book/{{this.id}}"> Like </a>
-          <a href="/books/read-book/{{this.id}}"> Already read! </a>
-  
+<div class="wrapper">
+  <h1> Books especially for you!</h1>
+  <br>
+  <div class = 'book-page'>
+    <div class = 'new-books'>
+    
+      <h2> New books for you!</h2>
+      <br>
+
+      {{#each books}}
+        <div class = 'book-card'>
+          <img src="{{this.imageUrl}}" alt="{{this.title}}">
+
+          <div class = 'book-info'>
+            <h3> {{this.title}}</h3>
+
+            <h4> Authors: </h4>
+            {{#each this.authors}}
+              <p> {{this}} </p>
+            {{/each}}
+
+            <a href="/books/{{this._id}}"> Read more...</a> 
+
+            <br>
+
+            <a href="/books/like-book/{{this.id}}"> Like </a>
+            <a href="/books/read-book/{{this.id}}"> Already read! </a>
+
+          </div>
         </div>
+
+        <br>
+        <br>
+
+      {{/each}}
+    </div>
+
+    <div class = 'right-panel'>
+
+      <div class = 'saved-books'>
+        <h2>Saved books</h2>
+        {{#each savedBooks}}
+          <li>
+            <a href="/books/{{this._id}}"> {{this.title}} </a>
+          </li>
+        {{/each}}
+
+        </ul>
       </div>
-  
-      <br>
-      <br>
-  
-    {{/each}}
-  </div>
-  
-  <div class = 'right-panel'>
 
-    <div class = 'saved-books'>
-      <h2>Saved books</h2>
-      {{#each savedBooks}}
-        <li>
-          <a href="/books/{{this._id}}"> {{this.title}} </a>
-        </li>
-      {{/each}}
+      <div class = 'read-books'>
+        <h2>Already read!</h2>
+         {{#each readBooks}}
+          <li>
+            <a href="/books/{{this._id}}"> {{this.title}} </a>
+          </li>
+        {{/each}}
+      </div>
 
-      </ul>
-    </div>
-
-    <div class = 'read-books'>
-      <h2>Already read!</h2>
-       {{#each readBooks}}
-        <li>
-          <a href="/books/{{this._id}}"> {{this.title}} </a>
-        </li>
-      {{/each}}
     </div>
 
   </div>
-
 </div>
 
 {{!-- {{#each this}}

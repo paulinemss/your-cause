@@ -1,38 +1,41 @@
-<h1>BOOK PAGE </h1>
+{{> mainNav active='books' }}
 
-<br>
+<div class="wrapper">
+  <h1>BOOK PAGE </h1>
+  <br>
 
-<img src="{{ book.imageUrl }}" alt="{{ book.title }}">
+  <img src="{{ book.imageUrl }}" alt="{{ book.title }}">
 
-<br>
-<br>
+  <br>
+  <br>
 
-<h2> {{ book.title }}</h2>
+  <h2> {{ book.title }}</h2>
 
-<br>
+  <br>
 
-<h4> Authors: </h4>
-{{#each book.authors}}
-  <p> {{ this }} </p>
-{{/each}}
+  <h4> Authors: </h4>
+  {{#each book.authors}}
+    <p> {{ this }} </p>
+  {{/each}}
 
-<br>
+  <br>
 
-<h4> Publisher </h4>
-<p> {{ book.publisher }} </p>
-<p> Date: {{ book.publishedDate }} </p>
+  <h4> Publisher </h4>
+  <p> {{ book.publisher }} </p>
+  <p> Date: {{ book.publishedDate }} </p>
 
-<br>
+  <br>
 
-<h4> Number of pages </h4>
-<p> {{ book.pageCount }} </p>
+  <h4> Number of pages </h4>
+  <p> {{ book.pageCount }} </p>
 
-<br>
+  <br>
 
-<h4> Description </h4>
-<p> {{ book.description }} </p>
+  <h4> Description </h4>
+  <p> {{ book.description }} </p>
 
-<br>
+  <br>
 
-<button type="button"> Like </button>
-<button type="button"> Already read! </button>
+  <button type="button"> Like </button>
+  <button type="button"> Already read! </button>
+</div>

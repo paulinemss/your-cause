@@ -1,13 +1,88 @@
-<h1>YOUR CAUSE</h1>
+<div class="frontpage">
 
-{{#if user}}
+  <div class="frontpage_nav">
 
-<a href="/dash">Dashboard</a> |
-<a href="/auth/logout">Logout</a>
+    <div class="frontpage_logo">
+      Your Cause.
+    </div>
 
-{{else}}
+    <div class="frontpage_navbar">
+      <ul>
+        {{#if user}}
+        <li><a href="/dash">Dashboard</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
 
-<a href="/auth/login">Login</a> |
-<a href="/auth/signup">Signup</a>
+        {{else}}
 
-{{/if}}
+        <li><a href="/auth/login">Login</a></li>
+        <li><a href="/auth/signup">Signup</a></li>
+
+        {{/if}}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="frontpage_main">
+
+    <div class="frontpage_top">
+      <div class="frontpage_elements">
+        <img src="/images/undraw.png" alt="">
+      </div>
+      <div class="frontpage_title">
+        <h1>Learn how to be a better activist.</h1>
+        <h2>Your Cause is a simple dashboard that allows you to get books recommandations, stay informed and participate
+          in online events to learn more about activism.</h2>
+        <a class="frontpage_btn" href="#middle">See More</a>
+      </div>
+    </div>
+
+    <div class="frontpage_middle" id="middle">
+
+      <div class="frontpage_text-left">
+        <h2>Your Cause</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit leo ac faucibus iaculis. Mauris euismod
+          augue
+          varius risus ornare, sed posuere libero ultricies. Maecenas vehicula nisl imperdiet, pretium lectus vitae,
+          accumsan
+          orci. Maecenas sit amet lectus id magna pellentesque porta quis quis mi. Vestibulum tincidunt consequat
+          pretium.
+          Curabitur non congue nibh. Aliquam varius semper felis, ac elementum ex hendrerit vitae. Suspendisse in eros
+          sed
+          enim
+          gravida commodo in malesuada urna.</p>
+      </div>
+
+      <div class="frontpage_text-right">
+        <h2>Who are we?</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit leo ac faucibus iaculis. Mauris euismod
+          augue
+          varius risus ornare, sed posuere libero ultricies. Maecenas vehicula nisl imperdiet, pretium lectus vitae,
+          accumsan
+          orci. Maecenas sit amet lectus id magna pellentesque porta quis quis mi. Vestibulum tincidunt consequat
+          pretium.
+          Curabitur non congue nibh. Aliquam varius semper felis, ac elementum ex hendrerit vitae. Suspendisse in eros
+          sed
+          enim
+          gravida commodo in malesuada urna.</p>
+      </div>
+
+    </div>
+
+    <div class="frontpage_bottom">
+      <div>
+        <p>Built with <i class="fas fa-heart"></i> by
+          <a href="https://github.com/moniquedehaard" target="_blank">Monique de Haard</a>
+          and
+          <a href="https://github.com/paulinemss" target="_blank">Pauline Massé</a>
+        </p>
+      </div>
+
+      <div>
+        @ 2020 Your Cause.
+      </div>
+    </div>
+
+  </div>
+
+</div>

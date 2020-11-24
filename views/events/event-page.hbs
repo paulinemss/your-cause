@@ -1,30 +1,36 @@
-<h1>One Event Page</h1>
+{{!-- SINGLE EVENT PAGE --}}
 
-<h2>Title: {{event.title}}</h2>
+{{> mainNav active='events' }}
 
-{{#if userIsAuthor}}
-<a href="/events/edit-event/{{event._id}}">Edit event</a> |
-<a href="/events/delete-event/{{event._id}}">Delete event</a>
-{{/if}}
+<div class="wrapper">
+  <h1>One Event Page</h1>
 
-<br>
+  <h2>Title: {{event.title}}</h2>
 
-{{#if userIsAttending}}
-<a href="/events/not-attending/{{event._id}}">I can't attend anymore</a>
-{{else}}
-<a href="/events/attending/{{event._id}}">I want to attend</a>
-{{/if}}
+  {{#if userIsAuthor}}
+  <a href="/events/edit-event/{{event._id}}">Edit event</a> |
+  <a href="/events/delete-event/{{event._id}}">Delete event</a>
+  {{/if}}
 
-<h3>Attendees</h3>
+  <br>
 
-{{#if attendees}}
+  {{#if userIsAttending}}
+  <a href="/events/not-attending/{{event._id}}">I can't attend anymore</a>
+  {{else}}
+  <a href="/events/attending/{{event._id}}">I want to attend</a>
+  {{/if}}
 
-{{#each attendees}}
-<img style="height:100px; border-radius:50%" src="{{profilePic}}" alt="{{username}} profile picture">
-{{/each}}
+  <h3>Attendees</h3>
 
-{{else}}
+  {{#if attendees}}
 
-<div>Be the first to sign-up!</div>
+  {{#each attendees}}
+  <img style="height:100px; border-radius:50%" src="{{profilePic}}" alt="{{username}} profile picture">
+  {{/each}}
 
-{{/if}}
+  {{else}}
+
+  <div>Be the first to sign-up!</div>
+
+  {{/if}}
+</div>

@@ -68,6 +68,8 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
   const eventImg = req.file; 
   const dateString = getDateString(req.body);
 
+  // TODO : STORE SHORT DESCRIPTION TO SHOW IN MAIN EVENTS FEED
+
   /* error handling if the user made mistakes with dates */
   const now = new Date(); 
   const start = new Date(startDate); 

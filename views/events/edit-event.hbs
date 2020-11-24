@@ -1,61 +1,67 @@
-<h1>Edit event</h1>
+{{!-- EDIT EVENT PAGE --}}
 
-<form action="/events/edit-event/{{event._id}}" method="POST" enctype="multipart/form-data">
+{{> mainNav active='events' }}
 
-  <label for="title">Title:</label>
-  <input type="text" name="title" id="title" value="{{event.title}}">
+<div class="wrapper">
+  <h1>Edit event</h1>
 
-  <br>
+  <form action="/events/edit-event/{{event._id}}" method="POST" enctype="multipart/form-data">
 
-  <label for="organiser">Organiser:</label>
-  <input type="text" name="organiser" id="organiser" value="{{event.organiser}}">
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" value="{{event.title}}">
 
-  <br>
+    <br>
 
-  <label for="description">What is your event about?</label>
-  <input type="text" name="description" id="description" value="{{event.description}}" required>
+    <label for="organiser">Organiser:</label>
+    <input type="text" name="organiser" id="organiser" value="{{event.organiser}}">
 
-  <br>
+    <br>
 
-  <label for="startDate">Start date:</label>
-  <input type="date" name="startDate" id="startDate" value="{{dates.startDate}}" required>
+    <label for="description">What is your event about?</label>
+    <input type="text" name="description" id="description" value="{{event.description}}" required>
 
-  <label for="startTime">Start time:</label>
-  <input type="time" name="startTime" id="startTime" value="{{event.startTime}}" required>
+    <br>
 
-  <br>
+    <label for="startDate">Start date:</label>
+    <input type="date" name="startDate" id="startDate" value="{{dates.startDate}}" required>
 
-  <label for="endDate">End date:</label>
-  <input type="date" name="endDate" id="endDate" value="{{dates.endDate}}" required>
+    <label for="startTime">Start time:</label>
+    <input type="time" name="startTime" id="startTime" value="{{event.startTime}}" required>
 
-  <label for="endTime">End time:</label>
-  <input type="time" name="endTime" id="endTime" value="{{event.endTime}}" required>
+    <br>
 
-  <br>
+    <label for="endDate">End date:</label>
+    <input type="date" name="endDate" id="endDate" value="{{dates.endDate}}" required>
 
-  <label for="link">Link to event page:</label>
-  <input type="text" name="link" id="link" value="{{event.link}}">
+    <label for="endTime">End time:</label>
+    <input type="time" name="endTime" id="endTime" value="{{event.endTime}}" required>
 
-  <br>
+    <br>
 
-  <label for="imageUrl">Event Image:</label>
-  <input type="file" name="imageUrl" accept="image/png, image/jpg">
+    <label for="link">Link to event page:</label>
+    <input type="text" name="link" id="link" value="{{event.link}}">
 
-  <br>
+    <br>
 
-  <label for="category">Category:</label>
-  <select id="category" name="category">
-    {{#if (isSelected 'environment' event.category)}}
-    <option value="environment" selected>Environment</option>
-    <option value="women">Women's rights</option>
-    {{else}}
-    <option value="environment">Environment</option>
-    <option value="women" selected>Women's rights</option>
-    {{/if}}
-  </select>
+    <label for="imageUrl">Event Image:</label>
+    <input type="file" name="imageUrl" accept="image/png, image/jpg">
 
-  <br>
+    <br>
 
-  <button type="submit">Submit</button>
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+      {{#if (isSelected 'environment' event.category)}}
+      <option value="environment" selected>Environment</option>
+      <option value="women">Women's rights</option>
+      {{else}}
+      <option value="environment">Environment</option>
+      <option value="women" selected>Women's rights</option>
+      {{/if}}
+    </select>
 
-</form>
+    <br>
+
+    <button type="submit">Submit</button>
+
+  </form>
+</div>

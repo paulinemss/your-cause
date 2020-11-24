@@ -10,6 +10,10 @@ const hbs = require("hbs");
 hbs.registerHelper('isSelected', function (savedValue, selectedValue) {
   return savedValue === selectedValue; 
 });
+hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+hbs.registerPartials(__dirname + '/views/partials');
 
 const app = express();
 

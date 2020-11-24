@@ -1,126 +1,132 @@
-<h1>Create event</h1>
+{{!-- CREATE EVENT PAGE --}}
 
-{{#if prefilledEvent}}
+{{> mainNav active='events' }}
 
-<form action="/events/create-event" method="POST" enctype="multipart/form-data">
+<div class="wrapper">
+  <h1>Create event</h1>
 
-  <label for="title">Title:</label>
-  <input type="text" name="title" id="title" value="{{prefilledEvent.title}}" required>
+  {{#if prefilledEvent}}
 
-  <br>
+  <form action="/events/create-event" method="POST" enctype="multipart/form-data">
 
-  <label for="organiser">Organiser:</label>
-  <input type="text" name="organiser" id="organiser" value="{{prefilledEvent.organiser}}" required>
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" value="{{prefilledEvent.title}}" required>
 
-  <br>
+    <br>
 
-  <label for="description">What is your event about?</label>
-  <input type="text" name="description" id="description" value="{{prefilledEvent.description}}" required>
+    <label for="organiser">Organiser:</label>
+    <input type="text" name="organiser" id="organiser" value="{{prefilledEvent.organiser}}" required>
 
-  <br>
+    <br>
 
-  <label for="startDate">Start date:</label>
-  <input type="date" name="startDate" id="startDate" required>
+    <label for="description">What is your event about?</label>
+    <input type="text" name="description" id="description" value="{{prefilledEvent.description}}" required>
 
-  <label for="startTime">Start time:</label>
-  <input type="time" name="startTime" id="startTime" value="{{prefilledEvent.startTime}}" required>
+    <br>
 
-  <br>
+    <label for="startDate">Start date:</label>
+    <input type="date" name="startDate" id="startDate" required>
 
-  <label for="endDate">End date:</label>
-  <input type="date" name="endDate" id="endDate" required>
+    <label for="startTime">Start time:</label>
+    <input type="time" name="startTime" id="startTime" value="{{prefilledEvent.startTime}}" required>
 
-  <label for="endTime">End time:</label>
-  <input type="time" name="endTime" id="endTime" value="{{prefilledEvent.endTime}}" required>
+    <br>
 
-  <br>
+    <label for="endDate">End date:</label>
+    <input type="date" name="endDate" id="endDate" required>
 
-  <label for="link">Link to event page:</label>
-  <input type="url" name="link" id="link" value="{{prefilledEvent.link}}" required>
+    <label for="endTime">End time:</label>
+    <input type="time" name="endTime" id="endTime" value="{{prefilledEvent.endTime}}" required>
 
-  <br>
+    <br>
 
-  <label for="imageUrl">Event Image:</label>
-  <input type="file" name="imageUrl" accept="image/png, image/jpg">
+    <label for="link">Link to event page:</label>
+    <input type="url" name="link" id="link" value="{{prefilledEvent.link}}" required>
 
-  <br>
+    <br>
 
-  <label for="category">Category:</label>
-  <select id="category" name="category" required>
-    {{#if (isSelected 'environment' prefilledEvent.category)}}
-    <option value="environment" selected>Environment</option>
-    <option value="women">Women's rights</option>
-    {{else}}
-    <option value="environment">Environment</option>
-    <option value="women" selected>Women's rights</option>
-    {{/if}}
-  </select>
+    <label for="imageUrl">Event Image:</label>
+    <input type="file" name="imageUrl" accept="image/png, image/jpg">
 
-  <br>
+    <br>
 
-  <button type="submit">Submit</button>
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+      {{#if (isSelected 'environment' prefilledEvent.category)}}
+      <option value="environment" selected>Environment</option>
+      <option value="women">Women's rights</option>
+      {{else}}
+      <option value="environment">Environment</option>
+      <option value="women" selected>Women's rights</option>
+      {{/if}}
+    </select>
 
-</form>
+    <br>
 
-{{else}}
+    <button type="submit">Submit</button>
 
-<form action="/events/create-event" method="POST" enctype="multipart/form-data">
+  </form>
 
-  <label for="title">Title:</label>
-  <input type="text" name="title" id="title" required>
+  {{else}}
 
-  <br>
+  <form action="/events/create-event" method="POST" enctype="multipart/form-data">
 
-  <label for="organiser">Organiser:</label>
-  <input type="text" name="organiser" id="organiser" required>
+    <label for="title">Title:</label>
+    <input type="text" name="title" id="title" required>
 
-  <br>
+    <br>
 
-  <label for="description">What is your event about?</label>
-  <input type="text" name="description" id="description" required>
+    <label for="organiser">Organiser:</label>
+    <input type="text" name="organiser" id="organiser" required>
 
-  <br>
+    <br>
 
-  <label for="startDate">Start date:</label>
-  <input type="date" name="startDate" id="startDate" required>
+    <label for="description">What is your event about?</label>
+    <input type="text" name="description" id="description" required>
 
-  <label for="startTime">Start time:</label>
-  <input type="time" name="startTime" id="startTime" required>
+    <br>
 
-  <br>
+    <label for="startDate">Start date:</label>
+    <input type="date" name="startDate" id="startDate" required>
 
-  <label for="endDate">End date:</label>
-  <input type="date" name="endDate" id="endDate" required>
+    <label for="startTime">Start time:</label>
+    <input type="time" name="startTime" id="startTime" required>
 
-  <label for="endTime">End time:</label>
-  <input type="time" name="endTime" id="endTime" required>
+    <br>
 
-  <br>
+    <label for="endDate">End date:</label>
+    <input type="date" name="endDate" id="endDate" required>
 
-  <label for="link">Link to event page:</label>
-  <input type="url" name="link" id="link" required>
+    <label for="endTime">End time:</label>
+    <input type="time" name="endTime" id="endTime" required>
 
-  <br>
+    <br>
 
-  <label for="imageUrl">Event Image:</label>
-  <input type="file" name="imageUrl" accept="image/png, image/jpg">
+    <label for="link">Link to event page:</label>
+    <input type="url" name="link" id="link" required>
 
-  <br>
+    <br>
 
-  <label for="category">Category:</label>
-  <select id="category" name="category" required>
-    <option value="environment">Environment</option>
-    <option value="women">Women's rights</option>
-  </select>
+    <label for="imageUrl">Event Image:</label>
+    <input type="file" name="imageUrl" accept="image/png, image/jpg">
 
-  <br>
+    <br>
 
-  <button type="submit">Submit</button>
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+      <option value="environment">Environment</option>
+      <option value="women">Women's rights</option>
+    </select>
 
-</form>
+    <br>
 
-{{/if}}
+    <button type="submit">Submit</button>
 
-{{#if errorMessage}}
-<div>{{errorMessage}}</div>
-{{/if}}
+  </form>
+
+  {{/if}}
+
+  {{#if errorMessage}}
+  <div>{{errorMessage}}</div>
+  {{/if}}
+</div>

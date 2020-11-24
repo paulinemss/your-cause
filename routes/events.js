@@ -67,8 +67,7 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
   const { user } = req.session;
   const eventImg = req.file; 
   const dateString = getDateString(req.body);
-
-  // TODO : STORE SHORT DESCRIPTION TO SHOW IN MAIN EVENTS FEED
+  const shortDescription = `${description.slice(0, 100)}...`;
 
   /* error handling if the user made mistakes with dates */
   const now = new Date(); 
@@ -109,6 +108,7 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,
@@ -165,6 +165,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
   const { user } = req.session;
   const eventImg = req.file; 
   const dateString = getDateString(req.body);
+  const shortDescription = `${description.slice(0, 100)}...`;
 
   /* error handling if the user made mistakes with dates */
   const now = new Date(); 
@@ -199,6 +200,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,
@@ -220,6 +222,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,

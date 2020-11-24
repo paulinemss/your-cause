@@ -10,6 +10,7 @@ const eventSchema = new Schema({
   endTime: String, 
   dateString: String,
   description: String,
+  shortDescription: String,
   link: String,
   image: String,
   author: {

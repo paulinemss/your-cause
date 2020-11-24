@@ -45,9 +45,9 @@
   <br>
   {{#if isInReadBooks}}
     {{!-- <button type="button"> Like </button> --}}
-    <a href="/book-page/unread-book/{{this.book._id}}"> Oops, mistake! </a>
+    <a href="/books/book-page/unread-book/{{this.book._id}}"> Oops, mistake! </a>
   {{else}}
-    <a href="/book-page/read-book/{{this.book._id}}"> Read this book! </a>
+    <a href="/books/book-page/read-book/{{this.book._id}}"> Read this book! </a>
     {{!-- <button type="button"> Already read! </button> --}}
   {{/if}}
 </div>

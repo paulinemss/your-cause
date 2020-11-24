@@ -8,11 +8,32 @@ const User = require('../models/User.model')
 // 1. See if user is loggedin ✅ 
 // 2. check users preferences ✅ 
 // 3. links should be updated ✅ 
-// 3. Need the first 10 books of today
-
+// 4. Need the first 10 books of today
+// 5. Write function for checking books in readArray/likeArray 
 
 /* Middlewares */ 
 const isLoggedIn = require('../middlewares/isLoggedIn');
+
+/* Importing helper functions */
+const { storeDataInDB, updateUrl } = require('../helpers-function/books');
+  
+
+/* URLS, startindex for API */
+// startindex
+let startIndex = 0;
+// const maxResults = 10;
+
+// // women
+// const women = 'feminism'; 
+// let urlGoogleBooksWomen = `https://www.googleapis.com/books/v1/volumes?q=subject:${women}&startIndex=${startIndex}&maxResults=${maxResults}&key=${process.env.BOOKS_KEY}`
+
+// // climate
+// const climate = 'climate+change';
+// let urlGoogleBooksClimate = `https://www.googleapis.com/books/v1/volumes?q=subject:${climate}&startIndex=${startIndex}&maxResults=${maxResults}&key=${process.env.BOOKS_KEY}`
+
+
+
+
 
 /* GET feed page */
 router.get('/', isLoggedIn, (req,res,next) => {
@@ -27,39 +48,71 @@ router.get('/', isLoggedIn, (req,res,next) => {
   .then(foundUser => {
     //console.log('Userdata: ', foundUser)
 
+    // Create date for today:
+    const today = new Date();
+    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    //console.log('date', todayFormatted)
+
     // Show all book data
     Book
-    .find({ category: user.interest }) 
-    .then(books => {
-      const { savedBooks, readBooks } = user;
-
-      console.log(savedBooks)
-      console.log(readBooks)
-
-      let modifiedBooks = []
-      books.forEach(book => {
-        const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
-        const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
-        const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
-        const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
-
-        modifiedBooks.push({
-          book,
-          isInSavedBooks,
-          isInReadBooks
-        })
-      })
-      console.log('New books: ', modifiedBooks)
-
-      res.render('books/feed', {
-        books: modifiedBooks, 
-        savedBooks: foundUser.savedBooks, 
-        readBooks: foundUser.readBooks
-      });
-    });
+    .find({ storedDate: todayFormatted})
+    .then( response => {
+      console.log(response)
+      // if response is empty array, do running db
+      if(!response.length){
+        console.log('run db ')
+        startIndex =+ 10;
+        const { urlWomen, urlClimate }  = updateUrl(startIndex)
+        console.log(urlWomen)
+        console.log(urlClimate)
+        const women = storeDataInDB(todayFormatted, urlWomen, 'women');
+        const environment = storeDataInDB(todayFormatted, urlClimate, 'environment');
+        console.log(women)
+      }
+      //console.log('Yes, there are books in database', response.length);
+      res.render('books/feed')
+    })
   })
   .catch(err => console.log(err))
 })
+
+//     .find({ category: user.interest }) 
+//     .then(books => {
+//       const { savedBooks, readBooks } = user;
+      
+//       let modifiedBooks = []
+//       books.forEach(book => {
+//         const d = book.storedDate;
+//         if(d === todayFormatted){
+//           console.log('yes')
+//         }
+  
+          
+
+
+//         // WRITE FUNCTION FOR THIS
+//         const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+//         const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+//         const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+//         const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+
+//         modifiedBooks.push({
+//           book,
+//           isInSavedBooks,
+//           isInReadBooks
+//         })
+//       })
+//       //console.log('New books: ', modifiedBooks)
+
+//       res.render('books/feed', {
+//         books: modifiedBooks, 
+//         savedBooks: foundUser.savedBooks, 
+//         readBooks: foundUser.readBooks
+//       });
+//     });
+//   })
+//   .catch(err => console.log(err))
+// })
 
 
 /// BOOK PAGE /// 

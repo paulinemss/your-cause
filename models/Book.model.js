@@ -14,7 +14,7 @@ const bookSchema = new Schema({
   pageCount: Number,
   imageUrl: String,
   googleID: String,
-  storedDate: Date
+  storedDate: String
 });
 
 const Book = model("Book", bookSchema);

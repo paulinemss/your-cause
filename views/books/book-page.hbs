@@ -35,7 +35,19 @@
   <p> {{ book.description }} </p>
 
   <br>
-
-  <button type="button"> Like </button>
-  <button type="button"> Already read! </button>
+  {{#if isInSavedBooks}}
+    {{!-- <button type="button"> Unlike </button> --}}
+    <a href="/books/book-page/unlike-book/{{this.book._id}}"> Unlike </a>
+  {{else}}
+    <a href="/books/book-page/like-book/{{this.book._id}}"> Like </a>
+    {{!-- <button type="button"> Like </button> --}}
+  {{/if}}
+  <br>
+  {{#if isInReadBooks}}
+    {{!-- <button type="button"> Like </button> --}}
+    <a href="/book-page/unread-book/{{this.book._id}}"> Oops, mistake! </a>
+  {{else}}
+    <a href="/book-page/read-book/{{this.book._id}}"> Read this book! </a>
+    {{!-- <button type="button"> Already read! </button> --}}
+  {{/if}}
 </div>

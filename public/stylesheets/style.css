@@ -49,6 +49,11 @@ body {
   align-items: center;
 }
 
+.frontpage_nav a {
+  text-decoration: none;
+  color: #2f2f2f;
+}
+
 .frontpage_navbar ul {
   list-style-type: none;
   display: flex;
@@ -56,11 +61,6 @@ body {
 
 .frontpage_navbar li {
   margin-left: 40px;
-}
-
-.frontpage_navbar a {
-  text-decoration: none;
-  color: #2f2f2f;
 }
 
 .frontpage_main {
@@ -135,6 +135,120 @@ body {
 
 .frontpage_bottom a {
   font-weight: 300;
+  color: #fff;
+}
+
+/* LOGIN, SIGNUP CSS */
+
+.frontpage_auth {
+  margin-top: 100px;
+  height: 85vh;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frontpage_active {
+  border-bottom: 3px solid #6C3AC2;
+}
+
+.frontpage_auth-left {
+  width: 50vw;
+}
+
+.frontpage_auth-left img {
+  width: 100%;
+}
+
+.frontpage_auth-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.frontpage_auth-box {
+  width: 500px;
+  padding: 40px;
+  background: #f4f5f7;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+}
+
+.frontpage_auth-box h1 {
+  margin-bottom: 20px;
+}
+
+.frontpage_auth-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.frontpage_auth-box input {
+  margin-bottom: 15px;
+}
+
+.auth_btn {
+  font-size: 16px;
+  background-color: #F8BE7A;
+  color: #fff; 
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.03);
+  border: none;
+  outline: none;
+  width: 150px;
+  justify-self: center;
+  align-self: center;
+  cursor: pointer;
+}
+
+.auth_error {
+  font-size: 14px;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.auth_categories {
+  display: flex;
+  margin-left: -10px;
+}
+
+.auth_category {
+  margin-left: 10px;
+  margin-bottom: 15px;
+  width: 50%;
+}
+
+.auth_category input[type=radio] {
+  display: none;
+}
+
+.auth_category label {
+  display: inline-block;
+  background-color: #fff;
+  font-family: Arial;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.auth_category label i {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.auth_category input[type=radio]:checked+label {
+  background: #F8BE7A;
   color: #fff;
 }
 
@@ -372,6 +486,10 @@ body {
     width: 90vw;
     margin: 0;
   }
+
+  .frontpage_auth-left {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 800px ) {
@@ -405,5 +523,11 @@ body {
 
   .wrapper {
     margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .frontpage_auth-box {
+    width: 100%;
   }
 }

@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap');
 
+/* COLOR PALETTE */
+
+/*
+Background : #F4F5F7
+Purple accents : #6C3AC2
+Yellow accents : #F8BE7A
+*/
+
+/* MAIN ELEMENTS */
+
 * {
   margin: 0;
   padding: 0;
@@ -38,8 +48,24 @@ body {
   display: flex;
 }
 
-.main-nav__active * {
-  color: red;
+.main-nav__active .main-nav__icon {
+  color: #6C3AC2;
+}
+
+.main-nav__active .main-nav__menu {
+  color: #453d54;
+  position: relative;
+}
+
+.main-nav__active .main-nav__menu::after {
+  content: " "; 
+  width: 8px;
+  height: 8px; 
+  border-radius: 50%; 
+  background-color: #6C3AC2; 
+  position: absolute;
+  top: 11px;
+  right: -30px; 
 }
 
 .main-nav__logo {

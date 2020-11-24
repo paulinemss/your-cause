@@ -1,12 +1,56 @@
-<h1>Dashboard</h1>
+{{!-- MAIN NEWS PAGE --}}
 
-<h2>Hello, {{user.username}}</h2>
+{{> mainNav active='dash' }}
 
-<a href="/books/feed">Books</a> |
-<a href="/events">Events</a> |
-<a href="/news">News</a> |
-<a href="/settings">Settings</a>
+<div class="wrapper">
+  <h1>Dashboard</h1>
 
-<br>
+  <h2>Hello, {{user.username}}</h2>
 
-<a href="/auth/logout">Logout</a>
+  <div class="events-all">
+
+    <h2>All events:</h2>
+    {{#if events}}
+    {{#each events}}
+    <div class="card-lg">
+      <div class="card_left">
+        <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+      </div>
+      <div class="card_middle">
+        <h3>{{title}}</h3>
+        <h4>Organised by {{organiser}}</h4>
+        <p>{{dateString}}</p>
+        <p>Description: {{description}}</p>
+        <p><a href="/events/{{_id}}">More info</a></p>
+      </div>
+      <div class="card_right">
+        <i>Category: {{category}}</i>
+      </div>
+    </div>
+    {{/each}}
+    {{else}}
+    <div class="card-none-lg">
+      Create a new event now!
+    </div>
+    {{/if}}
+
+  </div>
+
+  <div class="news-all">
+
+    <h2>All news:</h2>
+    {{#each news}}
+    <div class="card-lg">
+      <div class="card-middle">
+        <h3>{{title}}</h3>
+        <h4>Published: {{pubDate}}</h4>
+        <p>{{contentSnippet}}</p>
+        <a href="{{link}}" target="_blank">Read more</a>
+      </div>
+    </div>
+    {{/each}}
+
+  </div>
+
+  <br>
+</div>

@@ -134,8 +134,14 @@ body {
 }
 
 .frontpage_bottom a {
+  text-decoration: none;
   font-weight: 300;
   color: #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.frontpage_bottom a:hover {
+  border-bottom: 2px solid #F8BE7A;
 }
 
 /* LOGIN, SIGNUP CSS */

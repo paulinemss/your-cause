@@ -16,6 +16,7 @@ const isLoggedIn = require('../middlewares/isLoggedIn');
 router.get('/', isLoggedIn, (req,res,next) => {
   const { user } = req.session;
 
+  console.log(user)
   //const savedBooks = [];
   //const readBooks = [];
 
@@ -24,21 +25,22 @@ router.get('/', isLoggedIn, (req,res,next) => {
   .populate('savedBooks')
   .populate('readBooks')
   .then(foundUser => {
-    console.log('Userdata: ', foundUser)
+    //console.log('Userdata: ', foundUser)
 
     // Show all book data
     Book
     .find({ category: user.interest }) 
     .then(books => {
-      console.log('Books from db: ' ,books)
+      //console.log('Books from db: ' ,books)
       //console.log('readBooks: ', foundUser.readBooks)
 
       //const userIsAttending = foundEvent.attendees.some(e => {
       //  return e.equals(user._id);
-      books.forEach(bk => {
-        bk
-        
-      })
+      //console.log(req.session.user)
+
+      // books.forEach(bk => {
+      //   bk
+      // })
 
       res.render('books/feed', {
         books: books, 
@@ -122,8 +124,8 @@ router.get('/like-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
-    
+      //console.log('updatedUser: ', updatedUser);
+      req.session.user = updatedUser;
       res.redirect(`/books`);
   })
 })
@@ -141,7 +143,8 @@ router.get('/read-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
+      req.session.user = updatedUser;
 
       res.redirect(`/books`);
     })

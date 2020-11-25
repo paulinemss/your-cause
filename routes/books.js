@@ -17,29 +17,14 @@ const isLoggedIn = require('../middlewares/isLoggedIn');
 /* Importing helper functions */
 const { storeDataInDB, updateUrl } = require('../helpers-function/books');
   
-
-/* URLS, startindex for API */
-// startindex
-let startIndex = 0;
-// const maxResults = 10;
-
-// // women
-// const women = 'feminism'; 
-// let urlGoogleBooksWomen = `https://www.googleapis.com/books/v1/volumes?q=subject:${women}&startIndex=${startIndex}&maxResults=${maxResults}&key=${process.env.BOOKS_KEY}`
-
-// // climate
-// const climate = 'climate+change';
-// let urlGoogleBooksClimate = `https://www.googleapis.com/books/v1/volumes?q=subject:${climate}&startIndex=${startIndex}&maxResults=${maxResults}&key=${process.env.BOOKS_KEY}`
-
-
-
-
+function stateUpdater(state) {
+  return state === 30 ? 0 : state + 10; 
+}
 
 /* GET feed page */
 router.get('/', isLoggedIn, (req,res,next) => {
   // Get user information from cookie
   const { user } = req.session;
-  //console.log(user)
 
   User
   .findById(user._id)
@@ -50,88 +35,207 @@ router.get('/', isLoggedIn, (req,res,next) => {
 
     // Create date for today:
     const today = new Date();
-    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()-1)}`;
-    //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
-    //console.log('date', todayFormatted)
+    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()+4)}`;
+    console.log(todayFormatted)
 
     // Show all book data
     Book
     .find({ storedDate: todayFormatted})
-    .then( response => {
-      console.log('Response db',response)
+    .then(response => {
+      console.log('Response db', response)
+
       // if response is empty array, do running db
       if(!response.length){
-        console.log('run db ')
-        startIndex =+ 10;
-        const { urlWomen, urlClimate }  = updateUrl(startIndex)
-        const women = storeDataInDB(todayFormatted, urlWomen, 'women');
-        const environment = storeDataInDB(todayFormatted, urlClimate, 'environment');
-        //console.log(women)
-        //console.log(environment)
-        //console.log(startIndex)
+        console.log('there is no books dated today');
 
         Book
-        .find({ $and:[{ storedDate: todayFormatted },{ category:user.interst }] })
-        .then(books => {
-          const { savedBooks, readBooks } = user;
-          let modifiedBooks = [];
+          .updateMany({}, { $set: { storedDate: todayFormatted } })
+          .then(() => {
+            Book
+              .find()
+              .then(allBooks => {
+                const newState = stateUpdater(allBooks[0].state)
+                Book
+                  .updateMany({}, { $set: { state: newState } })
+                  .then(() => {
+                    Book
+                      .find({ category: user.interest })
+                      .then(allBooks => {
 
-          books.forEach(book => {
-            // WRITE FUNCTION FOR THIS
-            const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
-            const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
-            const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
-            const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+                        const renderedBooks = allBooks.slice(newState, newState+ 10); 
+                        const { savedBooks, readBooks } = user;
+                        let modifiedBooks = [];
 
-            modifiedBooks.push({
-              book,
-              isInSavedBooks,
-              isInReadBooks
-            })
+                        renderedBooks.forEach(book => {
+                          //WRITE FUNCTION FOR THIS
+                          const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+                          const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+                          const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+                          const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+                                
+                          modifiedBooks.push({
+                            book,
+                            isInSavedBooks,
+                            isInReadBooks
+                          })
+                        })
+
+                        res.render('books/feed', {
+                          books: modifiedBooks, 
+                          savedBooks: foundUser.savedBooks, 
+                          readBooks: foundUser.readBooks
+                        })
+
+                      })
+                  })
+              })
           })
-         res.render('books/feed', {
-           books: modifiedBooks, 
-           savedBooks: foundUser.savedBooks, 
-           readBooks: foundUser.readBooks
-         });
-        })
-        .catch(err => console.log(err));
       }
       else {
-        console.log('Getting data')
+        //console.log('Getting data')
         Book
-        .find({ storedDate: todayFormatted})
         .find({ category: user.interest })
-        //.find({ $and:[{ storedDate: {$eq: todayFormatted }} ,{ category:{ $eq: user.interst} }] })
         .then(books => {
+          //console.log('Results from db: ', books)
+
+          const newState = books[0].state;
+          const renderedBooks = books.slice(newState, newState+ 10); 
           const { savedBooks, readBooks } = user;
           let modifiedBooks = [];
 
-          books.forEach(book => {
+          renderedBooks.forEach(book => {
             // WRITE FUNCTION FOR THIS
             const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
             const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
             const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
             const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
-
+            
             modifiedBooks.push({
               book,
               isInSavedBooks,
               isInReadBooks
             })
           })
-         res.render('books/feed', {
-           books: modifiedBooks, 
-           savedBooks: foundUser.savedBooks, 
-           readBooks: foundUser.readBooks
-         });
+
+          // render app feed
+          res.render('books/feed', {
+            books: modifiedBooks, 
+            savedBooks: foundUser.savedBooks, 
+            readBooks: foundUser.readBooks
+          })
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log('there has been an error ', err))
       }
     })
-    .catch(err => console.log('No books', err))
   })
+  .catch(err => console.log('there has been an error ', err))
 })
+
+
+
+// router.get('/', isLoggedIn, (req,res,next) => {
+//   // Get user information from cookie
+//   const { user } = req.session;
+//   //console.log(user)
+
+//   User
+//   .findById(user._id)
+//   .populate('savedBooks')
+//   .populate('readBooks')
+//   .then(foundUser => {
+//     //console.log('Userdata: ', foundUser)
+
+//     // Create date for today:
+//     const today = new Date();
+//     const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
+//     //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
+//     //console.log('date', todayFormatted)
+
+//     // Show all book data
+//     Book
+//     .find({ storedDate: todayFormatted})
+//     .then( response => {
+//       console.log('Response db',response)
+//       // if response is empty array, do running db
+//       if(!response.length){
+//         console.log('run db ')
+//         startIndex =+ 10;
+//         const { urlWomen, urlClimate } = updateUrl(startIndex)
+//         //const women = storeDataInDB(todayFormatted, urlWomen, 'women');
+//         //const environment = storeDataInDB(todayFormatted, urlClimate, 'environment');
+//         //console.log(women)
+//         //console.log(environment)
+//         //console.log(startIndex)
+
+//         storeDataInDB(todayFormatted, urlWomen, 'women')
+//           .then(() => {
+//             storeDataInDB(todayFormatted, urlClimate, 'environment')
+//               .then(() => {
+//                 Book
+//                 .find({ storedDate: todayFormatted})
+//                 .find({ category: user.interest })
+//                 .then(books => {
+//                   const { savedBooks, readBooks } = user;
+//                   let modifiedBooks = [];
+
+//                   books.forEach(book => {
+//                     // WRITE FUNCTION FOR THIS
+//                     const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+//                     const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+//                     const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+//                     const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+
+//                     modifiedBooks.push({
+//                       book,
+//                       isInSavedBooks,
+//                       isInReadBooks
+//                     })
+//                   })
+//                 res.render('books/feed', {
+//                   books: modifiedBooks, 
+//                   savedBooks: foundUser.savedBooks, 
+//                   readBooks: foundUser.readBooks
+//                 });
+//               })
+//             })
+//           })
+//         .catch(err => console.log(err));
+//       }
+//       else {
+//         console.log('Getting data')
+//         Book
+//         .find({ storedDate: todayFormatted})
+//         .find({ category: user.interest })
+//         //.find({ $and:[{ storedDate: {$eq: todayFormatted }} ,{ category:{ $eq: user.interst} }] })
+//         .then(books => {
+//           const { savedBooks, readBooks } = user;
+//           let modifiedBooks = [];
+
+//           books.forEach(book => {
+//             // WRITE FUNCTION FOR THIS
+//             const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+//             const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+//             const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+//             const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+
+//             modifiedBooks.push({
+//               book,
+//               isInSavedBooks,
+//               isInReadBooks
+//             })
+//           })
+//          res.render('books/feed', {
+//            books: modifiedBooks, 
+//            savedBooks: foundUser.savedBooks, 
+//            readBooks: foundUser.readBooks
+//          });
+//         })
+//         .catch(err => console.log(err));
+//       }
+//     })
+//     .catch(err => console.log('No books', err))
+//   })
+// })
 
 
 /// BOOK PAGE /// 
@@ -144,7 +248,7 @@ router.get('/:id', isLoggedIn, (req,res,next) => {
   Book
   .findById(id)
   .then(foundBook => {
-    console.log('Book found: ', foundBook);
+    //console.log('Book found: ', foundBook);
 
     const bookIsSavedBook = savedBooks.filter(el => el.equals(foundBook._id))
     const bookIsReadBook = readBooks.filter(el => el.equals(foundBook._id))
@@ -174,7 +278,7 @@ router.get('/like-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
       req.session.user = updatedUser;
       res.redirect(`/books`);
     })
@@ -196,7 +300,7 @@ router.get('/unlike-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
       req.session.user = updatedUser;
       res.redirect(`/books`);
     })
@@ -218,7 +322,7 @@ router.get('/read-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
       req.session.user = updatedUser;
       res.redirect(`/books`);
     })
@@ -240,7 +344,7 @@ router.get('/unread-book/:id', isLoggedIn, (req, res) => {
       { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
       req.session.user = updatedUser;
       res.redirect(`/books`);
     })
@@ -262,7 +366,7 @@ router.get('/book-page/like-book/:id', isLoggedIn, (req, res) => {
      { new: true }
     )
     .then(updatedUser => {
-      console.log('updatedUser: ', updatedUser);
+      //console.log('updatedUser: ', updatedUser);
       req.session.user = updatedUser;
       res.redirect(`/books`);
     })

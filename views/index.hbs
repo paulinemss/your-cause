@@ -1,13 +1,73 @@
-<h1>YOUR CAUSE</h1>
+<div class="frontpage">
 
-{{#if user}}
+  <div class="frontpage_nav">
 
-<a href="/dash">Dashboard</a> |
-<a href="/auth/logout">Logout</a>
+    <div class="frontpage_logo">
+      <a href="/">Your Cause.</a>
+    </div>
 
-{{else}}
+    <div class="frontpage_navbar">
+      <ul>
+        {{#if user}}
+        <li><a href="/dash">Dashboard</a></li>
+        <li><a href="/auth/logout">Logout</a></li>
 
-<a href="/auth/login">Login</a> |
-<a href="/auth/signup">Signup</a>
+        {{else}}
 
-{{/if}}
+        <li><a href="/auth/login">Login</a></li>
+        <li><a href="/auth/signup">Signup</a></li>
+
+        {{/if}}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="frontpage_main">
+
+    <div class="frontpage_top">
+      <div class="frontpage_elements">
+        <img src="/images/undraw.png" alt="Image of a woman looking at several different files.">
+      </div>
+      <div class="frontpage_title">
+        <h1>Learn how to be a better activist.</h1>
+        <h2>A simple dashboard that gives you books recommandations, news updates and online events, all in a topic that
+          you care about.</h2>
+        <a class="frontpage_btn" href="#middle">See More</a>
+      </div>
+    </div>
+
+    <div class="frontpage_middle" id="middle">
+
+      <div class="frontpage_text-left">
+        <h2>From fighting climate change to defending women's rights, we gather everything you need to know about
+          becoming a better activist.</h2>
+        <p></p>
+      </div>
+
+      <div class="frontpage_text-right">
+        <h2>Who are we?</h2>
+        <p>We are two developers passionate about activism, but with very little time to scrape the internet for the
+          most interesting news articles, books and events in the topics we love. We built this application to
+          centralize all of this data, to stay informed everyday.</p>
+      </div>
+
+    </div>
+
+    <div class="frontpage_bottom">
+      <div>
+        <p>Built with <i class="fas fa-heart"></i> by
+          <a href="https://github.com/moniquedehaard" target="_blank">Monique de Haard</a>
+          and
+          <a href="https://github.com/paulinemss" target="_blank">Pauline Massé</a>
+        </p>
+      </div>
+
+      <div>
+        @ 2020 Your Cause.
+      </div>
+    </div>
+
+  </div>
+
+</div>

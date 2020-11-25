@@ -3,54 +3,60 @@
 {{> mainNav active='dash' }}
 
 <div class="wrapper">
-  <h1>Dashboard</h1>
 
-  <h2>Hello, {{user.username}}</h2>
-
-  <div class="events-all">
-
-    <h2>All events:</h2>
-    {{#if events}}
-    {{#each events}}
-    <div class="card-lg">
-      <div class="card_left">
-        <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
-      </div>
-      <div class="card_middle">
-        <h3>{{title}}</h3>
-        <h4>Organised by {{organiser}}</h4>
-        <p>{{dateString}}</p>
-        <p>Description: {{description}}</p>
-        <p><a href="/events/{{_id}}">More info</a></p>
-      </div>
-      <div class="card_right">
-        <i>Category: {{category}}</i>
-      </div>
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Dashboard</h1>
     </div>
-    {{/each}}
-    {{else}}
-    <div class="card-none-lg">
-      Create a new event now!
-    </div>
-    {{/if}}
-
   </div>
 
-  <div class="news-all">
+  <div class="main">
 
-    <h2>All news:</h2>
-    {{#each news}}
-    <div class="card-lg">
-      <div class="card-middle">
-        <h3>{{title}}</h3>
-        <h4>Published: {{pubDate}}</h4>
-        <p>{{contentSnippet}}</p>
-        <a href="{{link}}" target="_blank">Read more</a>
+    <div class="all-card">
+
+      <h2>All events:</h2>
+      {{#if events}}
+      {{#each events}}
+      <div class="card">
+        <div class="card_left">
+          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+        </div>
+        <div class="card_middle">
+          <h3>{{title}}</h3>
+          <h4>Organised by {{organiser}}</h4>
+          <p>{{dateString}}</p>
+          <p>Description: {{description}}</p>
+          <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
+        </div>
+        <div class="card_right">
+          <i>Category: {{category}}</i>
+        </div>
       </div>
+      {{/each}}
+      {{else}}
+      <div class="card-none-lg">
+        Create a new event now!
+      </div>
+      {{/if}}
+
+      <div class="news-all">
+
+        <h2>All news:</h2>
+        {{#each news}}
+        <div class="card">
+          <div class="card-middle">
+            <h3>{{title}}</h3>
+            <h4>Published: {{pubDate}}</h4>
+            <p>{{contentSnippet}}</p>
+            <a class="button-yellow" href="{{link}}" target="_blank">Read more</a>
+          </div>
+        </div>
+        {{/each}}
+
+      </div>
+
     </div>
-    {{/each}}
 
   </div>
-
-  <br>
 </div>

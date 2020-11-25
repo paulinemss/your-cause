@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Book = require('../models/Book.model');
-const User = require('../models/User.model')
+const User = require('../models/User.model');
 
 // TODO
 // 1. See if user is loggedin

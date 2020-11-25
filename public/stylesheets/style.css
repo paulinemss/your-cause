@@ -20,14 +20,15 @@ Yellow accents : #F8BE7A
 }
 
 body {
-  background-color: #f4f5f7;
   color: #2f2f2f;
   overflow-x: hidden;
 }
 
 .wrapper {
-  margin-left: 200px;
+  background-color: #f4f5f7;
+  margin-left: 300px;
   padding: 30px;
+  min-height: 100vh;
 }
 
 a:hover {
@@ -38,6 +39,13 @@ button:hover {
   opacity: 0.8;
 }
 
+input {
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid#C3C2C4;
+}
+
 /* FRONT PAGE CSS */
 
 .frontpage {
@@ -45,10 +53,9 @@ button:hover {
 }
 
 .frontpage_nav {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 600;
   padding: 0 50px;
-  background: #f4f5f7;
-  position: fixed;
   width: 100vw;
   height: 100px;
   top: 0;
@@ -81,35 +88,31 @@ button:hover {
 }
 
 .frontpage_main {
-  margin-top: 100px;
   background: #fff;
+  margin-top: -30px;
 }
 
 .frontpage_top {
   padding: 0 50px;
-  height: 80vh;
+  padding-bottom: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.frontpage_elements {
-  height: 100%;
-}
-
 .frontpage_elements img {
-  width: 50vw;
   object-fit: contain;
-  height: 100%;
+  object-position: bottom;
+  height: 550px;
 }
 
 .frontpage_title {
-  width: 380px;
+  width: 520px;
 }
 
 .frontpage_title h1 {
-  font-size: 37.90px;
-  line-height: 1.3;
+  font-size: 60px;
+  line-height: 1;
   margin-bottom: 20px;
 }
 
@@ -131,14 +134,20 @@ button:hover {
 }
 
 .frontpage_middle {
-  padding: 50px;
   background: #f4f5f7;
   display: flex;
   justify-content: center;
 }
+.frontpage_text-left {
+  padding: 150px 50px;
+  background: #F8BE7A;
+  font-size: 24px;
+  line-height: 1.3;
+  max-width: 50%;
+}
 
 .frontpage_text-right {
-  margin-left: 50px;
+  padding: 150px 50px;
 }
 
 .frontpage_bottom {
@@ -164,12 +173,8 @@ button:hover {
 /* LOGIN, SIGNUP CSS */
 
 .frontpage_auth {
-  margin-top: 100px;
-  height: 85vh;
   background: #fff;
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .frontpage_active {
@@ -177,19 +182,65 @@ button:hover {
 }
 
 .frontpage_auth-left {
-  width: 50vw;
+  width: 600px;
+  display: flex;
+  flex-flow: column;
+  padding: 50px;
+}
+.frontpage_auth-left .frontpage_logo {
+  margin-bottom: 60px;
+}
+.frontpage_auth-left img {
+  height: 100px;
+  width: auto;
+}
+.frontpage_auth-left h1 {
+  margin-bottom: 30px;
 }
 
-.frontpage_auth-left img {
-  width: 100%;
+.frontpage_auth-left form {
+  display: flex;
+  flex-flow: column;
+}
+
+.frontpage_auth-left form input {
+  margin-bottom: 15px;
 }
 
 .frontpage_auth-right {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
+  flex-grow: 1;
+  position: relative;
 }
-
+.frontpage_auth-right_copy {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 80px;
+  font-size: 32px;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.1;
+}
+.frontpage_auth-right_color-block {
+  height: 100%;
+}
+.frontpage_auth-right_color-block.a {
+  background: #F9BE7A;
+  width: 40%;
+}
+.frontpage_auth-right_color-block.b {
+  background: linear-gradient(#FBC381, #FBCF8F);
+  width: 30%;
+}
+.frontpage_auth-right_color-block.c {
+  background: linear-gradient(#FBD99D, #FDDC9F);
+  width: 30%;
+}
 .frontpage_auth-box {
   width: 500px;
   padding: 40px;
@@ -216,17 +267,21 @@ button:hover {
   background-color: #F8BE7A;
   color: #fff; 
   text-decoration: none;
-  padding: 5px 20px;
+  padding: 10px 40px;
   border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.03);
   border: none;
   outline: none;
   width: 150px;
-  justify-self: center;
-  align-self: center;
+  align-self: flex-start;
   cursor: pointer;
 }
-
+.auth_btn-row {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 .auth_error {
   font-size: 14px;
   color: red;
@@ -283,9 +338,9 @@ button:hover {
   justify-content: space-between;
   position: fixed;
   height: 100vh;
-  width: 200px;
+  width: 300px;
   background: #fff;
-  padding: 30px;
+  padding: 40px;
 }
 
 .main-nav a {
@@ -372,6 +427,7 @@ button:hover {
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 30px;
+  position: relative;
 }
 
 .header-left {
@@ -397,6 +453,7 @@ button:hover {
 }
 
 .main h2 {
+  opacity: 0.5;
   margin-bottom: 15px;
 }
 
@@ -422,6 +479,7 @@ button:hover {
 
 .card {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 30px;
   background:    radial-gradient(
       circle at top left,
@@ -436,6 +494,28 @@ button:hover {
 .card-right {
   margin-left: auto;
   opacity: 0.5;
+}
+.card-middle {
+  flex-basis: 300px;
+  flex-grow: 1;
+}
+.card-middle h4 {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.card-middle h3 {
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01rem;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.card-middle p {
+  line-height: 1.3;
+  margin-bottom: 18px;
+  font-size: 16px;
 }
 
 .all-cards {
@@ -461,7 +541,7 @@ button:hover {
 
 .event-image {
   width: 200px;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
   margin-right: 20px;
 }
@@ -527,9 +607,13 @@ button:hover {
 
 .one-event-img {
   width: 100%;
-  height: 30vh;
+  height: 45vh;
   object-fit: cover;
   margin-bottom: 20px;
+  margin-left: -30px;
+  width: calc(100% + 60px);
+  margin-top: -100p;
+  margin-top: -107px;
 }
 
 .one-event-description {
@@ -614,6 +698,32 @@ button:hover {
   height: 30vh;
 }
 
+/* Pace loader */
+
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #7c60e0;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+
+
 /* MOBILE RESPONSIVENESS */
 
 @media only screen and (max-width: 1100px ) {
@@ -623,6 +733,11 @@ button:hover {
 
   .all-cards {
     width: 90vw;
+  }
+
+  .event-image {
+    width: 100%;
+    height: 300px;
   }
 
   .user-content {

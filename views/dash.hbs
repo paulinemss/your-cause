@@ -10,26 +10,23 @@
       <h1>Dashboard</h1>
     </div>
   </div>
-
   <div class="main">
-
-    <div class="all-card">
-
-      <h2>All events:</h2>
+    <div class='all-cards'>
+      <h2>All events</h2>
       {{#if events}}
       {{#each events}}
       <div class="card">
-        <div class="card_left">
+        <div class="card-left">
           <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
         </div>
-        <div class="card_middle">
+        <div class="card-middle">
           <h3>{{title}}</h3>
           <h4>Organised by {{organiser}}</h4>
           <p>{{dateString}}</p>
           <p>Description: {{shortDescription}}</p>
           <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
         </div>
-        <div class="card_right">
+        <div class="card-right">
           <i>Category: {{category}}</i>
         </div>
       </div>
@@ -39,26 +36,9 @@
         Create a new event now!
       </div>
       {{/if}}
-
-      <div class="news-all">
-
-        <h2>All news:</h2>
-        {{#each news}}
-        <div class="card">
-          <div class="card-middle">
-            <h3>{{title}}</h3>
-            <h4>Published: {{pubDate}}</h4>
-            <p>{{contentSnippet}}</p>
-            <a class="button-yellow" href="{{link}}" target="_blank">Read more</a>
-          </div>
-        </div>
-        {{/each}}
-
-      </div>
-
       <div class="books-all">
 
-        <h2>All saved books:</h2>
+        <h2>All saved books</h2>
         {{#each books}}
         <div class="card">
           <div class="card-middle">
@@ -68,8 +48,19 @@
         {{/each}}
 
       </div>
-
     </div>
-
+    <div class="user-content">
+      <h2>All news</h2>
+      {{#each news}}
+      <div class="card">
+        <div class="card-middle">
+          <h4>{{pubDate}}</h4>
+          <h3>{{title}}</h3>
+          <p>{{contentSnippet}}</p>
+          <a class="button-yellow" href="{{link}}" target="_blank">Read more</a>
+        </div>
+      </div>
+      {{/each}}
+    </div>
   </div>
 </div>

@@ -17,16 +17,8 @@ exports.updateUrl = function(startIndex) {
 /* Helper function to do an API call (on a new date) */ 
 exports.storeDataInDB = function(date_today, url, cat) {
 
-  const mongoose = require('mongoose');
   const axios = require('axios');
   const Book = require('../models/Book.model');
-  
-  //MONGOOSE CONNECTION
-  mongoose.connect(`mongodb://localhost/ironhack-project2`, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
 
   // STORE BOOKS FROM API IN DB
   axios.get(url)

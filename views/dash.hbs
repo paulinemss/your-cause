@@ -1,0 +1,62 @@
+{{!-- MAIN NEWS PAGE --}}
+
+{{> mainNav active='dash' }}
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="all-card">
+
+      <h2>All events:</h2>
+      {{#if events}}
+      {{#each events}}
+      <div class="card">
+        <div class="card_left">
+          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+        </div>
+        <div class="card_middle">
+          <h3>{{title}}</h3>
+          <h4>Organised by {{organiser}}</h4>
+          <p>{{dateString}}</p>
+          <p>Description: {{shortDescription}}</p>
+          <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
+        </div>
+        <div class="card_right">
+          <i>Category: {{category}}</i>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="card-none-lg">
+        Create a new event now!
+      </div>
+      {{/if}}
+
+      <div class="news-all">
+
+        <h2>All news:</h2>
+        {{#each news}}
+        <div class="card">
+          <div class="card-middle">
+            <h3>{{title}}</h3>
+            <h4>Published: {{pubDate}}</h4>
+            <p>{{contentSnippet}}</p>
+            <a class="button-yellow" href="{{link}}" target="_blank">Read more</a>
+          </div>
+        </div>
+        {{/each}}
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

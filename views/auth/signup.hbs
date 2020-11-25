@@ -1,13 +1,82 @@
-<form action="/auth/signup" method="POST">
-   <label for="username">username</label>
-   <input type="text" id="username" name="username">
-   <label for="password">password</label>
-   <input type="password" id="password" name="password">
+<div class="frontpage">
 
-   <button type="submit">Submit</button>
-</form>
+   <div class="frontpage_nav">
 
+      <div class="frontpage_logo">
+         <a href="/"><img src="/images/your-cause-rect.png" alt="Your Cause Logo"></a>
+      </div>
 
+      <div class="frontpage_navbar">
+         <ul>
+            {{#if user}}
+            <li><a href="/dash">Dashboard</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
 
+            {{else}}
 
+            <li><a href="/auth/login">Login</a></li>
+            <li><a class="frontpage_active" href="/auth/signup">Signup</a></li>
 
+            {{/if}}
+         </ul>
+      </div>
+
+   </div>
+
+   <div class="frontpage_auth">
+
+      <div class="frontpage_auth-left">
+
+         <img src="/images/undraw.png" alt="Image of a woman looking at several different files.">
+
+      </div>
+
+      <div class="frontpage_auth-right">
+
+         <div class="frontpage_auth-box">
+            <h1>Signup</h1>
+
+            <form action="/auth/signup" method="POST" enctype="multipart/form-data">
+
+               <label for="username">Username</label>
+               <input type="text" id="username" name="username" required>
+
+               <label for="email">Email</label>
+               <input type="text" id="email" name="email" required>
+
+               <label for="profilePic">Profile picture</label>
+               <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
+
+               <label for="interest">What do you want to learn about?</label>
+
+               <div class="auth_categories">
+
+                  <div class="auth_category">
+                     <input type="radio" id="environment" name="interest" value="environment" checked="checked">
+                     <label for="environment"><i class="fab fa-pagelines"></i>CLIMATE CHANGE</label>
+                  </div>
+
+                  <div class="auth_category">
+                     <input type="radio" id="women" name="interest" value="women">
+                     <label for="women"><i class="fas fa-venus-double"></i>WOMEN'S RIGHTS</label>
+                  </div>
+
+               </div>
+
+               <label for="newPassword">Password</label>
+               <input type="password" id="newPassword" name="newPassword" required>
+
+               <label for="confirmPassword">Confirm password</label>
+               <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+               <button class="auth_btn" type="submit">Submit</button>
+            </form>
+
+            {{#if errorMessage}}
+            <div class="auth_error">❌ {{errorMessage}}</div>
+            {{/if}}
+
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,53 @@
+{{> mainNav active='books' }}
+
+<div class="wrapper">
+  <h1>BOOK PAGE </h1>
+  <br>
+
+  <img src="{{ book.imageUrl }}" alt="{{ book.title }}">
+
+  <br>
+  <br>
+
+  <h2> {{ book.title }}</h2>
+
+  <br>
+
+  <h4> Authors: </h4>
+  {{#each book.authors}}
+    <p> {{ this }} </p>
+  {{/each}}
+
+  <br>
+
+  <h4> Publisher </h4>
+  <p> {{ book.publisher }} </p>
+  <p> Date: {{ book.publishedDate }} </p>
+
+  <br>
+
+  <h4> Number of pages </h4>
+  <p> {{ book.pageCount }} </p>
+
+  <br>
+
+  <h4> Description </h4>
+  <p> {{ book.description }} </p>
+
+  <br>
+  {{#if isInSavedBooks}}
+    {{!-- <button type="button"> Unlike </button> --}}
+    <a href="/books/book-page/unlike-book/{{this.book._id}}"> Unlike </a>
+  {{else}}
+    <a href="/books/book-page/like-book/{{this.book._id}}"> Like </a>
+    {{!-- <button type="button"> Like </button> --}}
+  {{/if}}
+  <br>
+  {{#if isInReadBooks}}
+    {{!-- <button type="button"> Like </button> --}}
+    <a href="/books/book-page/unread-book/{{this.book._id}}"> Oops, mistake! </a>
+  {{else}}
+    <a href="/books/book-page/read-book/{{this.book._id}}"> Read this book! </a>
+    {{!-- <button type="button"> Already read! </button> --}}
+  {{/if}}
+</div>

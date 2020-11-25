@@ -1,0 +1,101 @@
+{{!-- MAIN EVENTS PAGE --}}
+
+{{> mainNav active='events' }}
+
+<div class="wrapper">
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Online Events</h1>
+    </div>
+    <div>
+      <a class="button-purple" href="/events/create-event">Create event</a>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="all-cards">
+
+      <h2>All events:</h2>
+      {{#if mainEvents}}
+      {{#each mainEvents}}
+      <div class="card">
+        <div class="card-left">
+          <img class="event-image" src="{{image}}" alt="Image of event {{title}}">
+        </div>
+        <div class="card-middle">
+          <h3>{{title}}</h3>
+          <h4>Organised by {{organiser}}</h4>
+          <p>{{dateString}}</p>
+          <p>Description: {{shortDescription}}</p>
+          <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
+        </div>
+        <div class="card-right">
+          <i>Category: {{category}}</i>
+        </div>
+      </div>
+      {{/each}}
+      {{else}}
+      <div class="card">
+        Create a new event now!
+      </div>
+      {{/if}}
+
+    </div>
+
+    <div class="user-content">
+
+      <div class="user-content_top">
+
+        <h2>Events you are attending:</h2>
+
+        <div class="user-content_cards">
+          {{#if eventsAttending}}
+          {{#each eventsAttending}}
+          <div class="card">
+            <div class="card-sm_middle">
+              <h3>{{title}}</h3>
+              <h4>Organised by {{organiser}}</h4>
+              <p>{{dateString}}</p>
+              <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
+            </div>
+          </div>
+          {{/each}}
+          {{else}}
+          <div class="card-sm_none">
+            You are not attending any event.
+          </div>
+          {{/if}}
+        </div>
+
+      </div>
+
+      <div class="user-content_bottom">
+
+        <h2>Your events:</h2>
+        <div class="user-content_cards">
+          {{#if eventsCreated}}
+          {{#each eventsCreated}}
+          <div class="card">
+            <div class="card-sm_middle">
+              <h3>{{title}}</h3>
+              <h4>Organised by {{organiser}}</h4>
+              <p>{{dateString}}</p>
+              <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
+            </div>
+          </div>
+          {{/each}}
+          {{else}}
+          <div class="card">
+            You haven't created any event.
+          </div>
+          {{/if}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

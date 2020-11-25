@@ -1,0 +1,29 @@
+{{!-- SETTINGS PAGE --}}
+
+{{> mainNav active='settings' }}
+
+<div class="wrapper">
+
+  <h1>Settings</h1>
+
+  <h2>{{user.username}}</h2>
+  <img style="height:200px;" src="{{user.profilePic}}" alt="user profile picture">
+
+  <br>
+
+  <a href="/settings/update-profile">Update profile</a>
+  <br>
+  <a href="/settings/update-password">Change password</a>
+  <br>
+  <a href="/settings/delete-account">Delete account</a>
+
+  {{#if messageDelete}}
+  <div>
+    <p>Are you sure you want to delete your account?</p>
+    <form action="/settings/delete-account" method="POST">
+      <button type="submit">Yes, please delete my account.</button>
+    </form>
+  </div>
+  {{/if}}
+
+</div>

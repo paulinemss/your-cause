@@ -1,6 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 const Event = require('../models/Event.model');
+const Book = require('../models/Book.model'); 
+const User = require('../models/User.model');
 const Parser = require('rss-parser');
 const parser = new Parser();
 
@@ -31,10 +33,11 @@ router.get('/dash', isLoggedIn, (req, res, next) => {
 
   const events = Event.find();
   const news = parser.parseURL(`https://news.google.com/rss/topics/${topic[user.interest]}?hl=en-US&gl=US&ceid=US:en`); 
+  const userWithBooks = User.findById(user._id).populate('savedBooks'); 
 
-  Promise.all([events, news])
+  Promise.all([events, news, userWithBooks])
     .then(values => {
-      const [foundEvents, foundNews] = values; 
+      const [foundEvents, foundNews, foundUserWithBooks] = values; 
 
       /* sorting the array of found events */ 
       const withoutOldEvents = removeOldEvents(foundEvents);
@@ -48,8 +51,11 @@ router.get('/dash', isLoggedIn, (req, res, next) => {
 
       /* slicing the news array to only show the first 5 */
       const news = foundNews.items.slice(0, 5);
+      
+      /* finding all the books the user has saved */
+      const books = foundUserWithBooks.savedBooks;
 
-      res.render('dash', { user, events, news });
+      res.render('dash', { user, events, news, books });
     })
     .catch(err => {
       console.log('error finding databases on dash page', err); 

@@ -309,12 +309,19 @@ router.get('/:id', isLoggedIn, (req, res, next) => {
       const userIsAttending = foundEvent.attendees.some(e => {
         return e.equals(user._id); 
       }); 
+      const nbrAttendees = foundEvent.attendees.length; 
+      const firstFiveAttendees = foundEvent.attendees.filter(e => {
+        return !e.equals(user._id);
+      }).slice(0, 5);
 
       res.render('events/event-page', { 
+        user,
         event: foundEvent, 
         userIsAuthor,
         userIsAttending,
-        attendees: foundEvent.attendees
+        attendees: foundEvent.attendees,
+        nbrAttendees,
+        firstFiveAttendees
       });
     })
     .catch(err => {

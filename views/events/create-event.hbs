@@ -3,130 +3,145 @@
 {{> mainNav active='events' }}
 
 <div class="wrapper">
-  <h1>Create event</h1>
 
-  {{#if prefilledEvent}}
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Create Event</h1>
+    </div>
+    <div>
+      <a class="button-purple" href="/events">Back to Events</a>
+    </div>
+  </div>
 
-  <form action="/events/create-event" method="POST" enctype="multipart/form-data">
+  <div class="main-create-event">
 
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" value="{{prefilledEvent.title}}" required>
+    {{#if prefilledEvent}}
 
-    <br>
+    <form class="form-event" action="/events/create-event" method="POST" enctype="multipart/form-data">
 
-    <label for="organiser">Organiser:</label>
-    <input type="text" name="organiser" id="organiser" value="{{prefilledEvent.organiser}}" required>
+      <div class="form-event-field">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" value="{{prefilledEvent.title}}" required>
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="organiser">Organiser:</label>
+        <input type="text" name="organiser" id="organiser" value="{{prefilledEvent.organiser}}" required>
+      </div>
 
-    <label for="description">What is your event about?</label>
-    <input type="text" name="description" id="description" value="{{prefilledEvent.description}}" required>
+      <div class="form-event-field">
+        <label for="description">What is your event about?</label>
+        <textarea name="description" id="description" value="{{prefilledEvent.description}}" required></textarea>
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="startDate">Start date:</label>
+        <input type="date" name="startDate" id="startDate" required>
 
-    <label for="startDate">Start date:</label>
-    <input type="date" name="startDate" id="startDate" required>
+        <label for="startTime">Start time:</label>
+        <input type="time" name="startTime" id="startTime" value="{{prefilledEvent.startTime}}" required>
+      </div>
 
-    <label for="startTime">Start time:</label>
-    <input type="time" name="startTime" id="startTime" value="{{prefilledEvent.startTime}}" required>
+      <div class="form-event-field">
+        <label for="endDate">End date:</label>
+        <input type="date" name="endDate" id="endDate" required>
 
-    <br>
+        <label for="endTime">End time:</label>
+        <input type="time" name="endTime" id="endTime" value="{{prefilledEvent.endTime}}" required>
+      </div>
 
-    <label for="endDate">End date:</label>
-    <input type="date" name="endDate" id="endDate" required>
+      <div class="form-event-field">
+        <label for="link">Link to event page:</label>
+        <input type="url" name="link" id="link" value="{{prefilledEvent.link}}" required>
+      </div>
 
-    <label for="endTime">End time:</label>
-    <input type="time" name="endTime" id="endTime" value="{{prefilledEvent.endTime}}" required>
+      <div class="form-event-field">
+        <label for="imageUrl">Event Image:</label>
+        <input type="file" name="imageUrl" accept="image/png, image/jpg">
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          {{#if (isSelected 'environment' prefilledEvent.category)}}
+          <option value="environment" selected>Environment</option>
+          <option value="women">Women's rights</option>
+          {{else}}
+          <option value="environment">Environment</option>
+          <option value="women" selected>Women's rights</option>
+          {{/if}}
+        </select>
+      </div>
 
-    <label for="link">Link to event page:</label>
-    <input type="url" name="link" id="link" value="{{prefilledEvent.link}}" required>
+      <button class="form-event-btn"="button-yellow" type="submit">Submit</button>
 
-    <br>
+    </form>
 
-    <label for="imageUrl">Event Image:</label>
-    <input type="file" name="imageUrl" accept="image/png, image/jpg">
+    {{else}}
 
-    <br>
+    <form class="form-event" action="/events/create-event" method="POST" enctype="multipart/form-data">
 
-    <label for="category">Category:</label>
-    <select id="category" name="category" required>
-      {{#if (isSelected 'environment' prefilledEvent.category)}}
-      <option value="environment" selected>Environment</option>
-      <option value="women">Women's rights</option>
-      {{else}}
-      <option value="environment">Environment</option>
-      <option value="women" selected>Women's rights</option>
-      {{/if}}
-    </select>
+      <div class="form-event-field">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="organiser">Organiser:</label>
+        <input type="text" name="organiser" id="organiser" required>
+      </div>
 
-    <button type="submit">Submit</button>
+      <div class="form-event-field">
+        <label for="description">What is your event about?</label>
+        <br>
+        <textarea name="description" id="description" required></textarea>
+      </div>
 
-  </form>
+      <div class="form-event-field">
+        <label for="startDate">Start date:</label>
+        <input type="date" name="startDate" id="startDate" required>
 
-  {{else}}
+        <label for="startTime">Start time:</label>
+        <input type="time" name="startTime" id="startTime" required>
+      </div>
 
-  <form action="/events/create-event" method="POST" enctype="multipart/form-data">
+      <div class="form-event-field">
+        <label for="endDate">End date:</label>
+        <input type="date" name="endDate" id="endDate" required>
 
-    <label for="title">Title:</label>
-    <input type="text" name="title" id="title" required>
+        <label for="endTime">End time:</label>
+        <input type="time" name="endTime" id="endTime" required>
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="link">Link to event page:</label>
+        <input type="url" name="link" id="link" required>
+      </div>
 
-    <label for="organiser">Organiser:</label>
-    <input type="text" name="organiser" id="organiser" required>
+      <div class="form-event-field">
+        <label for="imageUrl">Event Image:</label>
+        <input type="file" name="imageUrl" accept="image/png, image/jpg">
+      </div>
 
-    <br>
+      <div class="form-event-field">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+          <option value="environment">Environment</option>
+          <option value="women">Women's rights</option>
+        </select>
+      </div>
 
-    <label for="description">What is your event about?</label>
-    <input type="text" name="description" id="description" required>
+      <button class="form-event-btn" type="submit">Submit</button>
 
-    <br>
+    </form>
 
-    <label for="startDate">Start date:</label>
-    <input type="date" name="startDate" id="startDate" required>
+    {{/if}}
 
-    <label for="startTime">Start time:</label>
-    <input type="time" name="startTime" id="startTime" required>
-
-    <br>
-
-    <label for="endDate">End date:</label>
-    <input type="date" name="endDate" id="endDate" required>
-
-    <label for="endTime">End time:</label>
-    <input type="time" name="endTime" id="endTime" required>
-
-    <br>
-
-    <label for="link">Link to event page:</label>
-    <input type="url" name="link" id="link" required>
-
-    <br>
-
-    <label for="imageUrl">Event Image:</label>
-    <input type="file" name="imageUrl" accept="image/png, image/jpg">
-
-    <br>
-
-    <label for="category">Category:</label>
-    <select id="category" name="category" required>
-      <option value="environment">Environment</option>
-      <option value="women">Women's rights</option>
-    </select>
-
-    <br>
-
-    <button type="submit">Submit</button>
-
-  </form>
-
-  {{/if}}
+  </div>
 
   {{#if errorMessage}}
-  <div>{{errorMessage}}</div>
+  <div class="auth_error">❌ {{errorMessage}}</div>
   {{/if}}
+
 </div>

@@ -3,34 +3,70 @@
 {{> mainNav active='events' }}
 
 <div class="wrapper">
-  <h1>One Event Page</h1>
 
-  <h2>Title: {{event.title}}</h2>
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>{{event.title}}</h1>
+    </div>
+    <div>
+      <a class="button-purple" href="/events">Back to Events</a>
+    </div>
+  </div>
 
-  {{#if userIsAuthor}}
-  <a href="/events/edit-event/{{event._id}}">Edit event</a> |
-  <a href="/events/delete-event/{{event._id}}">Delete event</a>
-  {{/if}}
+  <div class="one-event">
 
-  <br>
+    {{#if userIsAuthor}}
+    <div class="one-event-btns">
+      <a href="/events/edit-event/{{event._id}}">Edit</a>
+      <a href="/events/delete-event/{{event._id}}">Delete</a>
+    </div>
+    {{/if}}
 
-  {{#if userIsAttending}}
-  <a href="/events/not-attending/{{event._id}}">I can't attend anymore</a>
-  {{else}}
-  <a href="/events/attending/{{event._id}}">I want to attend</a>
-  {{/if}}
+    <img class="one-event-img" src="{{event.image}}" alt="Event Image">
 
-  <h3>Attendees</h3>
+    <div class="one-event-description">
+      <h3>Event Description</h3>
+      <p>{{event.description}}</p>
+    </div>
 
-  {{#if attendees}}
+    <div class="one-event-attendees">
 
-  {{#each attendees}}
-  <img style="height:100px; border-radius:50%" src="{{profilePic}}" alt="{{username}} profile picture">
-  {{/each}}
+      <h3>Attendees</h3>
 
-  {{else}}
+      {{#if attendees}}
+      <div class="all-attendees">
+        {{#if userIsAttending}}
+        <img class="user-attending attendees-img" src="{{user.profilePic}}" alt="{{user.username}} profile picture">
+        {{/if}}
 
-  <div>Be the first to sign-up!</div>
+        {{#each firstFiveAttendees}}
+        <img class="attendees-img" src="{{profilePic}}" alt="{{username}} profile picture">
+        {{/each}}
 
-  {{/if}}
+        <div class="attendees-nbr">
+          {{nbrAttendees}} PEOPLE RESPONDED
+        </div>
+      </div>
+
+      {{else}}
+      <div class="all-attendees">
+        <div class="attendees-nbr">
+          BE THE FIRST TO ATTEND
+        </div>
+      </div>
+      {{/if}}
+
+      <div class="attending-btns">
+        {{#if userIsAttending}}
+        <a href="/events/not-attending/{{event._id}}"><i class="far fa-times-circle"></i> Not Going</a>
+        {{else}}
+        <a href="/events/attending/{{event._id}}"><i class="far fa-check-circle"></i> Going</a>
+        {{/if}}
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

@@ -63,6 +63,15 @@ body {
   margin-left: 40px;
 }
 
+.frontpage_logo a {
+  display: flex;
+  align-items: center;
+}
+
+.frontpage_logo img {
+  width: 180px;
+}
+
 .frontpage_main {
   margin-top: 100px;
   background: #fff;
@@ -298,8 +307,19 @@ body {
   right: -30px; 
 }
 
+.main-nav__top {
+  display: flex;
+  flex-direction: column;
+}
+
 .main-nav__logo {
+  align-self: center;
   margin-bottom: 30px;
+}
+
+.main-nav__logo img {
+  width: 80px;
+  border-radius: 10px;
 }
 
 .main-nav__top li {

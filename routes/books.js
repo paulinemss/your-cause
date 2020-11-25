@@ -47,6 +47,7 @@ router.get('/', isLoggedIn, (req,res,next) => {
       if(!response.length){
         //console.log('run db ')
         Book.updateMany({}, { $set: { storedDate: todayFormatted } })
+        Book.updateMany({}, { $set: { state: todayFormatted } }, {new: true})
         .then(updatedBooks => {
           //console.log(updatedBooks)
           Book

@@ -277,11 +277,11 @@ body {
   height: 100vh;
   width: 200px;
   background: #fff;
-  padding: 40px 30px;
+  padding: 30px;
 }
 
 .main-nav a {
-  color: #8a8a8a;
+  color: #b5b5b5;
   font-size: 18px;
   text-decoration: none;
   display: flex;

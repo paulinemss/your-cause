@@ -11,22 +11,32 @@
 
       {{#each books}}
       <div class='card-lg'>
-        <img src="{{this.imageUrl}}" alt="{{this.title}}">
+        <img src="{{this.book.imageUrl}}" alt="{{this.book.title}}">
 
         <div class='book-info'>
-          <h3> {{this.title}}</h3>
+          <h3> {{this.book.title}}</h3>
 
           <h4> Authors: </h4>
-          {{#each this.authors}}
+          {{#each this.book.authors}}
           <p> {{this}} </p>
           {{/each}}
 
-          <a href="/books/{{this._id}}"> Read more...</a>
+          <a href="/books/{{this.book._id}}"> Read more...</a>
 
           <br>
 
-          <a href="/books/like-book/{{this.id}}"> Like </a>
-          <a href="/books/read-book/{{this.id}}"> Already read! </a>
+          {{#if this.isInSavedBooks}}
+            <a href="/books/unlike-book/{{this.book._id}}"> Unlike </a>
+          {{else}}
+            <a href="/books/like-book/{{this.book._id}}"> Like </a>
+          {{/if}}
+          <br>
+
+          {{#if this.isInReadBooks}}
+            <a href="/books/unread-book/{{this.book._id}}"> Oops, mistake! </a>
+          {{else}}
+            <a href="/books/read-book/{{this.book._id}}"> Already read! </a>
+          {{/if}}
 
         </div>
       </div>

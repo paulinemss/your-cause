@@ -6,8 +6,12 @@ require("dotenv").config();
 
 // FUNCTION FOR STORE BOOKS FROM API IN DB
 function storeDataInDB(url, cat){
+  // get date today
+  const today = new Date();
+  const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()-1}`
+
   // STORE BOOKS FROM API IN DB
-  axios.get(urlGoogleBooksWomen)
+  axios.get(url)
   .then(data => {
     const books = data.data.items;
     // for each book in the books array
@@ -28,7 +32,8 @@ function storeDataInDB(url, cat){
             description,
             pageCount,
             imageUrl: thumbnail,
-            googleID: book.id
+            googleID: book.id,
+            storedDate: todayFormatted
           })
           .then(newAddedBook => {
             console.log(newAddedBook)

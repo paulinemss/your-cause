@@ -50,69 +50,88 @@ router.get('/', isLoggedIn, (req,res,next) => {
 
     // Create date for today:
     const today = new Date();
-    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+    //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()-1)}`;
+    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
     //console.log('date', todayFormatted)
 
     // Show all book data
     Book
     .find({ storedDate: todayFormatted})
     .then( response => {
-      console.log(response)
+      console.log('Response db',response)
       // if response is empty array, do running db
       if(!response.length){
         console.log('run db ')
         startIndex =+ 10;
         const { urlWomen, urlClimate }  = updateUrl(startIndex)
-        console.log(urlWomen)
-        console.log(urlClimate)
         const women = storeDataInDB(todayFormatted, urlWomen, 'women');
         const environment = storeDataInDB(todayFormatted, urlClimate, 'environment');
-        console.log(women)
+        //console.log(women)
+        //console.log(environment)
+        //console.log(startIndex)
+
+        Book
+        .find({ $and:[{ storedDate: todayFormatted },{ category:user.interst }] })
+        .then(books => {
+          const { savedBooks, readBooks } = user;
+          let modifiedBooks = [];
+
+          books.forEach(book => {
+            // WRITE FUNCTION FOR THIS
+            const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+            const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+            const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+            const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+
+            modifiedBooks.push({
+              book,
+              isInSavedBooks,
+              isInReadBooks
+            })
+          })
+         res.render('books/feed', {
+           books: modifiedBooks, 
+           savedBooks: foundUser.savedBooks, 
+           readBooks: foundUser.readBooks
+         });
+        })
+        .catch(err => console.log(err));
       }
-      //console.log('Yes, there are books in database', response.length);
-      res.render('books/feed')
+      else {
+        console.log('Getting data')
+        Book
+        .find({ storedDate: todayFormatted})
+        .find({ category: user.interest })
+        //.find({ $and:[{ storedDate: {$eq: todayFormatted }} ,{ category:{ $eq: user.interst} }] })
+        .then(books => {
+          const { savedBooks, readBooks } = user;
+          let modifiedBooks = [];
+
+          books.forEach(book => {
+            // WRITE FUNCTION FOR THIS
+            const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+            const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+            const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+            const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+
+            modifiedBooks.push({
+              book,
+              isInSavedBooks,
+              isInReadBooks
+            })
+          })
+         res.render('books/feed', {
+           books: modifiedBooks, 
+           savedBooks: foundUser.savedBooks, 
+           readBooks: foundUser.readBooks
+         });
+        })
+        .catch(err => console.log(err));
+      }
     })
+    .catch(err => console.log('No books', err))
   })
-  .catch(err => console.log(err))
 })
-
-//     .find({ category: user.interest }) 
-//     .then(books => {
-//       const { savedBooks, readBooks } = user;
-      
-//       let modifiedBooks = []
-//       books.forEach(book => {
-//         const d = book.storedDate;
-//         if(d === todayFormatted){
-//           console.log('yes')
-//         }
-  
-          
-
-
-//         // WRITE FUNCTION FOR THIS
-//         const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
-//         const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
-//         const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
-//         const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
-
-//         modifiedBooks.push({
-//           book,
-//           isInSavedBooks,
-//           isInReadBooks
-//         })
-//       })
-//       //console.log('New books: ', modifiedBooks)
-
-//       res.render('books/feed', {
-//         books: modifiedBooks, 
-//         savedBooks: foundUser.savedBooks, 
-//         readBooks: foundUser.readBooks
-//       });
-//     });
-//   })
-//   .catch(err => console.log(err))
-// })
 
 
 /// BOOK PAGE /// 

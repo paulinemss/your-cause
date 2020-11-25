@@ -50,8 +50,8 @@ router.get('/', isLoggedIn, (req,res,next) => {
 
     // Create date for today:
     const today = new Date();
-    //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()-1)}`;
-    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
+    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()-1)}`;
+    //const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate())}`;
     //console.log('date', todayFormatted)
 
     // Show all book data

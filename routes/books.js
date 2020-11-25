@@ -70,29 +70,30 @@ router.get('/', isLoggedIn, (req,res,next) => {
         return results
         .then (response => {
           Book
-        .find({ $and:[{ storedDate: todayFormatted },{ category:user.interst }] })
-        .then(books => {
-          const { savedBooks, readBooks } = user;
-          let modifiedBooks = [];
+          .find({ $and:[{ storedDate: todayFormatted },{ category:user.interst }] })
+          .then(books => {
+            const { savedBooks, readBooks } = user;
+            let modifiedBooks = [];
 
-          books.forEach(book => {
-            // WRITE FUNCTION FOR THIS
-            const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
-            const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
-            const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
-            const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+            books.forEach(book => {
+              // WRITE FUNCTION FOR THIS
+              const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+              const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+              const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+              const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
 
-            modifiedBooks.push({
-              book,
-              isInSavedBooks,
-              isInReadBooks
+              modifiedBooks.push({
+                book,
+                isInSavedBooks,
+                isInReadBooks
+              })
             })
+            res.render('books/feed', {
+              books: modifiedBooks, 
+              savedBooks: foundUser.savedBooks, 
+              readBooks: foundUser.readBooks
+            });
           })
-          res.render('books/feed', {
-           books: modifiedBooks, 
-           savedBooks: foundUser.savedBooks, 
-           readBooks: foundUser.readBooks
-         });
         })
         .catch(err => console.log(err));
       }

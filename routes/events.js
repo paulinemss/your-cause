@@ -67,8 +67,7 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
   const { user } = req.session;
   const eventImg = req.file; 
   const dateString = getDateString(req.body);
-
-  // TODO : STORE SHORT DESCRIPTION TO SHOW IN MAIN EVENTS FEED
+  const shortDescription = `${description.slice(0, 100)}...`;
 
   /* error handling if the user made mistakes with dates */
   const now = new Date(); 
@@ -109,6 +108,7 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,
@@ -120,7 +120,6 @@ router.post('/create-event', isLoggedIn, uploader.single('imageUrl'), (req, res,
       category
     })
     .then(createdEvent => {
-      console.log('createdEvent:', createdEvent);
       res.redirect('/events/');
     })
     .catch(err => {
@@ -135,7 +134,6 @@ router.get('/edit-event/:id', isLoggedIn, (req, res, next) => {
   Event
     .findById(eventID)
     .then(foundEvent => {
-      console.log('foundEvent', foundEvent);
 
       const formattedStartDate = formatDate(foundEvent.startDate);
       const formattedEndDate = formatDate(foundEvent.endDate);
@@ -167,6 +165,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
   const { user } = req.session;
   const eventImg = req.file; 
   const dateString = getDateString(req.body);
+  const shortDescription = `${description.slice(0, 100)}...`;
 
   /* error handling if the user made mistakes with dates */
   const now = new Date(); 
@@ -201,6 +200,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,
@@ -211,7 +211,6 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       category
     }, { new: true })
     .then(updatedEvent => {
-      console.log('updatedEvent:', updatedEvent);
       res.redirect('/events/');
     })
     .catch(err => {
@@ -223,6 +222,7 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       title,
       organiser,
       description,
+      shortDescription,
       startDate,
       startTime,
       endDate,
@@ -234,7 +234,6 @@ router.post('/edit-event/:id', isLoggedIn, uploader.single('imageUrl'), (req, re
       category
     }, { new: true })
     .then(updatedEvent => {
-      console.log('updatedEvent:', updatedEvent);
       res.redirect('/events/');
     })
     .catch(err => {
@@ -270,7 +269,6 @@ router.get('/attending/:id', isLoggedIn, (req, res, next) => {
       { new: true }
     )
     .then(updatedEvent => {
-      console.log('updatedEvent', updatedEvent);
       res.redirect(`/events/${updatedEvent._id}`);
     })
     .catch(err => {
@@ -291,7 +289,6 @@ router.get('/not-attending/:id', isLoggedIn, (req, res, next) => {
       { new: true }
     )
     .then(updatedEvent => {
-      console.log('updatedEvent', updatedEvent);
       res.redirect(`/events/${updatedEvent._id}`);
     })
     .catch(err => {

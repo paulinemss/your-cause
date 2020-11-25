@@ -33,8 +33,6 @@ router.post('/update-profile', isLoggedIn, uploader.single('profilePic'), (req, 
 
   User.findOne({ username }).then(found => {
     if (found && !found._id.equals(user._id)) {
-      console.log("found", found);
-      console.log('user', user);
       return res.status(400).render('settings/update-profile', { errorMessage: 'Username already taken' });
     }
     return User.findByIdAndUpdate(

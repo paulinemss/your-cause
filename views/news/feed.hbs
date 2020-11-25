@@ -3,15 +3,31 @@
 {{> mainNav active='news' }}
 
 <div class="wrapper">
-  <h2>News</h2>
-  {{#each data}}
-  <div class="card-lg">
-    <div class="card-middle">
-      <h3>{{title}}</h3>
-      <h4>Published: {{pubDate}}</h4>
-      <p>{{contentSnippet}}</p>
-      <a href="{{link}}" target="_blank">Read more</a>
+
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>News</h1>
     </div>
   </div>
-  {{/each}}
+
+  <div class="main">
+    <div class="all-card">
+
+      <h2>All news:</h2>
+
+      {{#each data}}
+      <div class="card">
+        <div class="card-middle">
+          <h3>{{title}}</h3>
+          <h4>Published: {{pubDate}}</h4>
+          <p>{{contentSnippet}}</p>
+          <a class="button-yellow" href="{{link}}" target="_blank">Read more</a>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
+  </div>
+
 </div>

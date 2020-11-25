@@ -1,45 +1,82 @@
-<h1>Signup</h1>
+<div class="frontpage">
 
-<form action="/auth/signup" method="POST" enctype="multipart/form-data">
+   <div class="frontpage_nav">
 
-   <label for="username">Username</label>
-   <input type="text" id="username" name="username" required>
+      <div class="frontpage_logo">
+         <a href="/"><img src="/images/your-cause-rect.png" alt="Your Cause Logo"></a>
+      </div>
 
-   <br>
+      <div class="frontpage_navbar">
+         <ul>
+            {{#if user}}
+            <li><a href="/dash">Dashboard</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
 
-   <label for="email">Email</label>
-   <input type="text" id="email" name="email" required>
+            {{else}}
 
-   <br>
+            <li><a href="/auth/login">Login</a></li>
+            <li><a class="frontpage_active" href="/auth/signup">Signup</a></li>
 
-   <label for="profilePic">Profile picture</label>
-   <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
+            {{/if}}
+         </ul>
+      </div>
 
-   <br>
+   </div>
 
-   <label for="interest">Interest</label>
+   <div class="frontpage_auth">
 
-   <input type="radio" id="environment" name="interest" value="environment" checked="checked">
-   <label for="environment">Environmental action</label>
+      <div class="frontpage_auth-left">
 
-   <input type="radio" id="women" name="interest" value="women">
-   <label for="women">Women's rights</label>
+         <img src="/images/undraw.png" alt="Image of a woman looking at several different files.">
 
-   <br>
+      </div>
 
-   <label for="newPassword">Password</label>
-   <input type="password" id="newPassword" name="newPassword" required>
+      <div class="frontpage_auth-right">
 
-   <br>
+         <div class="frontpage_auth-box">
+            <h1>Signup</h1>
 
-   <label for="confirmPassword">Confirm password</label>
-   <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <form action="/auth/signup" method="POST" enctype="multipart/form-data">
 
-   <br>
+               <label for="username">Username</label>
+               <input type="text" id="username" name="username" required>
 
-   <button type="submit">Submit</button>
-</form>
+               <label for="email">Email</label>
+               <input type="text" id="email" name="email" required>
 
-{{#if errorMessage}}
-<p>{{errorMessage}}</p>
-{{/if}}
+               <label for="profilePic">Profile picture</label>
+               <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
+
+               <label for="interest">What do you want to learn about?</label>
+
+               <div class="auth_categories">
+
+                  <div class="auth_category">
+                     <input type="radio" id="environment" name="interest" value="environment" checked="checked">
+                     <label for="environment"><i class="fab fa-pagelines"></i>CLIMATE CHANGE</label>
+                  </div>
+
+                  <div class="auth_category">
+                     <input type="radio" id="women" name="interest" value="women">
+                     <label for="women"><i class="fas fa-venus-double"></i>WOMEN'S RIGHTS</label>
+                  </div>
+
+               </div>
+
+               <label for="newPassword">Password</label>
+               <input type="password" id="newPassword" name="newPassword" required>
+
+               <label for="confirmPassword">Confirm password</label>
+               <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+               <button class="auth_btn" type="submit">Submit</button>
+            </form>
+
+            {{#if errorMessage}}
+            <div class="auth_error">❌ {{errorMessage}}</div>
+            {{/if}}
+
+         </div>
+      </div>
+   </div>
+</div>

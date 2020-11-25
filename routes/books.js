@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const mongoose = require('mongoose')
 const Book = require('../models/Book.model');
-const User = require('../models/User.model')
+const User = require('../models/User.model');
 
 
 // TODO

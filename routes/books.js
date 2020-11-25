@@ -17,9 +17,10 @@ const isLoggedIn = require('../middlewares/isLoggedIn');
 /* Importing helper functions */
 const { storeDataInDB, updateUrl } = require('../helpers-function/books');
   
-function stateUpdater(state){
-
+function stateUpdater(state) {
+  return state === 30 ? 0 : state + 10; 
 }
+
 /* GET feed page */
 router.get('/', isLoggedIn, (req,res,next) => {
   // Get user information from cookie
@@ -34,17 +35,18 @@ router.get('/', isLoggedIn, (req,res,next) => {
 
     // Create date for today:
     const today = new Date();
-    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()+1)}`;
+    const todayFormatted = `${today.getFullYear()}-${today.getMonth()}-${(today.getDate()+4)}`;
     console.log(todayFormatted)
 
     // Show all book data
     Book
     .find({ storedDate: todayFormatted})
-    .then( response => {
-      console.log('Response db',response)
+    .then(response => {
+      console.log('Response db', response)
 
       // if response is empty array, do running db
       if(!response.length){
+<<<<<<< HEAD
         //console.log('run db ')
         Book.updateMany({}, { $set: { storedDate: todayFormatted } })
         Book.updateMany({}, { $set: { state: todayFormatted } }, {new: true})
@@ -76,16 +78,52 @@ router.get('/', isLoggedIn, (req,res,next) => {
               })
             })
             //console.log(modifiedBooks)
+=======
+        console.log('there is no books dated today');
+>>>>>>> 71f688edf0099950eb1e004775703a2cda8051a8
 
-            // render app feed
-            res.render('books/feed', {
-              books: modifiedBooks, 
-              savedBooks: foundUser.savedBooks, 
-              readBooks: foundUser.readBooks
-            })
-          });
-        })
-        .catch(err => console.log('There has been an error ', err))
+        Book
+          .updateMany({}, { $set: { storedDate: todayFormatted } })
+          .then(() => {
+            Book
+              .find()
+              .then(allBooks => {
+                const newState = stateUpdater(allBooks[0].state)
+                Book
+                  .updateMany({}, { $set: { state: newState } })
+                  .then(() => {
+                    Book
+                      .find({ category: user.interest })
+                      .then(allBooks => {
+
+                        const renderedBooks = allBooks.slice(newState, newState+ 10); 
+                        const { savedBooks, readBooks } = user;
+                        let modifiedBooks = [];
+
+                        renderedBooks.forEach(book => {
+                          //WRITE FUNCTION FOR THIS
+                          const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
+                          const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
+                          const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
+                          const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
+                                
+                          modifiedBooks.push({
+                            book,
+                            isInSavedBooks,
+                            isInReadBooks
+                          })
+                        })
+
+                        res.render('books/feed', {
+                          books: modifiedBooks, 
+                          savedBooks: foundUser.savedBooks, 
+                          readBooks: foundUser.readBooks
+                        })
+
+                      })
+                  })
+              })
+          })
       }
       else {
         //console.log('Getting data')
@@ -94,9 +132,12 @@ router.get('/', isLoggedIn, (req,res,next) => {
         .then(books => {
           //console.log('Results from db: ', books)
 
+          const newState = books[0].state;
+          const renderedBooks = books.slice(newState, newState+ 10); 
           const { savedBooks, readBooks } = user;
-          let modifiedBooks = []
-          books.forEach(book => {
+          let modifiedBooks = [];
+
+          renderedBooks.forEach(book => {
             // WRITE FUNCTION FOR THIS
             const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
             const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
@@ -109,7 +150,6 @@ router.get('/', isLoggedIn, (req,res,next) => {
               isInReadBooks
             })
           })
-          //console.log('Modified books ',modifiedBooks);
 
           // render app feed
           res.render('books/feed', {

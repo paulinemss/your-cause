@@ -66,11 +66,10 @@ router.get('/', isLoggedIn, (req,res,next) => {
         const { urlWomen, urlClimate }  = updateUrl(startIndex)
         const women = storeDataInDB(todayFormatted, urlWomen, 'women');
         const environment = storeDataInDB(todayFormatted, urlClimate, 'environment');
-        //console.log(women)
-        //console.log(environment)
-        //console.log(startIndex)
-
-        Book
+        const results = {women, environment}
+        return results
+        .then (response => {
+          Book
         .find({ $and:[{ storedDate: todayFormatted },{ category:user.interst }] })
         .then(books => {
           const { savedBooks, readBooks } = user;
@@ -89,7 +88,7 @@ router.get('/', isLoggedIn, (req,res,next) => {
               isInReadBooks
             })
           })
-         res.render('books/feed', {
+          res.render('books/feed', {
            books: modifiedBooks, 
            savedBooks: foundUser.savedBooks, 
            readBooks: foundUser.readBooks

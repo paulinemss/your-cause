@@ -458,6 +458,41 @@ body {
   margin-right: 20px;
 }
 
+.main-create-event {
+  display: flex;
+  justify-content: center;
+}
+
+.form-event {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-event-field {
+  margin-bottom: 15px;
+}
+
+.form-event-description {
+  width: 100%;
+  height: 100px;
+}
+
+.form-event-btn {
+  font-size: 14px;
+  background-color: #F8BE7A;
+  color: #fff; 
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.03);
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 /* BOOKS CSS */
 
 .book-page {

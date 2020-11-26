@@ -330,6 +330,30 @@ input {
   color: #fff;
 }
 
+.auth_other-route {
+  color: #2f2f2f;
+  text-decoration: none;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+#quotes {
+  font-size: 32px;
+  animation: left_to_right 3s ease;
+}
+
+.run-animation {
+  animation: left_to_right 3s ease;
+}
+
+@keyframes left_to_right {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 /* MAIN NAV CSS */
 
 .main-nav {
@@ -678,15 +702,38 @@ input {
   padding: 30px;
   border-radius: 20px;
   display: flex;
-  flex-direction: column;
+  width: 80%;
+}
+
+.form-event-left {
+  width: 50%;
+}
+
+.form-event-right {
+  width: 50%;
+  margin-left: 30px;
 }
 
 .form-event-field {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-event-field textarea {
   width: 100%;
+}
+
+.date-time {
+  display: flex;
+}
+
+#startDate {
+  flex-grow: 1;
+}
+
+#endDate {
+  flex-grow: 1;
 }
 
 .form-event-btn {
@@ -811,6 +858,13 @@ input {
 
 /* MOBILE RESPONSIVENESS */
 
+@media only screen and (max-width: 1200px) {
+  .form-event {
+    width: 100%;
+  }
+}
+
+
 @media only screen and (max-width: 1100px ) {
   .main {
     flex-wrap: wrap;
@@ -830,12 +884,16 @@ input {
     margin: 0;
   }
 
-  .frontpage_auth-left {
+  .frontpage_auth {
+    justify-content: center;
+  }
+
+  .frontpage_auth-right {
     display: none;
   }
 }
 
-@media only screen and (max-width: 800px ) {
+@media only screen and (max-width: 1050px ) {
   .frontpage_top {
     flex-direction: column-reverse;
   }
@@ -845,17 +903,35 @@ input {
     margin-top: 50px;
   }
 
+  .frontpage_text-left {
+    padding: 50px;
+    max-width: 100%;
+  }
+
   .frontpage_middle {
     flex-direction: column;
   }
 
   .frontpage_text-right {
-    margin-top: 50px;
+    padding: 50px;
     margin-left: 0;
   }
 
   .frontpage_bottom {
     flex-direction: column;
+  }
+
+  .form-event {
+    flex-direction: column;
+  }
+
+  .form-event-left {
+    width: 100%;
+  }
+  
+  .form-event-right {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
@@ -878,5 +954,30 @@ input {
 @media only screen and (max-width: 550px) {
   .frontpage_auth-box {
     width: 100%;
+  }
+
+  .frontpage_elements img {
+    width: 100%;
+    margin-top: -250px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .frontpage_nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .frontpage_title h1 {
+    font-size: 40px;
+    margin-top: 20px;
+  }
+
+  .frontpage_navbar ul {
+    margin-left: -40px;
+  }
+
+  .frontpage_text-left {
+    font-size: 18px;
   }
 }

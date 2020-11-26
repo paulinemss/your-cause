@@ -14,7 +14,15 @@
   <div class="main">
     <div class="all-card">
 
-      <h2>All news:</h2>
+      <div class="dash-title">
+        <h2>
+          {{#ifEquals user.interest "environment"}}
+          Recent news on climate change
+          {{else}}
+          Recent news on women's rights
+          {{/ifEquals}}
+        </h2>
+      </div>
 
       {{#each data}}
       <div class="card">

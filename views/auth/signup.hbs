@@ -40,7 +40,10 @@
             <label for="confirmPassword">Confirm password</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-            <button class="auth_btn" type="submit">Submit</button>
+            <div class='auth_btn-row'>
+               <button class="auth_btn" type="submit">Submit</button>
+               <a class="auth_other-route" href="/auth/login">Already signed up? Login</a>
+            </div>
          </form>
 
          {{#if errorMessage}}
@@ -51,7 +54,7 @@
 
 
       <div class="frontpage_auth-right">
-         <div class='frontpage_auth-right_copy'>
+         <div class='frontpage_auth-right_copy run-animation' id="quotes">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae erat laoreet, hendrerit metus ac.
          </div>
          <div class='frontpage_auth-right_color-block a'></div>

@@ -1,79 +1,127 @@
+{{!-- MAIN BOOKS PAGE --}}
+
 {{> mainNav active='books' }}
 
 <div class="wrapper">
-  <h1> Books especially for you!</h1>
-  <br>
-  <div class='book-page'>
-    <div class='new-books'>
 
-      <h2> New books for you!</h2>
-      <br>
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Recommanded Books</h1>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <div class="all-cards">
+
+      <div class="dash-title">
+        <h2>Today's Recommandations</h2>
+      </div>
 
       {{#each books}}
-      <div class='card-lg'>
-        <img src="{{this.book.imageUrl}}" alt="{{this.book.title}}">
+      <div class="card">
+        <div class="card-left">
+          <img class="book-image" src="{{this.book.imageUrl}}" alt="Image of book {{title}}">
+        </div>
 
-        <div class='book-info'>
-          <h3> {{this.book.title}}</h3>
+        <div class="card-middle">
+          <h3>{{this.book.title}}</h3>
+          <p>Authors:
+            {{#each this.book.authors}}
+            {{this}}
+            {{/each}}
+          </p>
+          <p class="books-btns">
+            <a class="button-yellow" href="/books/{{this.book._id}}">More info</a>
 
-          <h4> Authors: </h4>
-          {{#each this.book.authors}}
-          <p> {{this}} </p>
-          {{/each}}
+            {{#if this.isInSavedBooks}}
+            <a class="books-btns_selected" href="/books/unlike-book/{{this.book._id}}">
+              <i class="fas fa-heart"></i> Like
+            </a>
+            {{else}}
+            <a class="books-btns_unselected" href="/books/like-book/{{this.book._id}}">
+              <i class="far fa-heart"></i> Like
+            </a>
+            {{/if}}
+            <br>
 
-          <a href="/books/{{this.book._id}}"> Read more...</a>
+            {{#if this.isInReadBooks}}
+            <a class="books-btns_selected" href="/books/unread-book/{{this.book._id}}">
+              <i class="fas fa-check-square"></i> Read
+            </a>
+            {{else}}
+            <a class="books-btns_unselected" href="/books/read-book/{{this.book._id}}">
+              <i class="far fa-check-square"></i> Read
+            </a>
+            {{/if}}
+          </p>
+        </div>
 
-          <br>
-
-          {{#if this.isInSavedBooks}}
-            <a href="/books/unlike-book/{{this.book._id}}"> Unlike </a>
+        <div class="card-right">
+          {{#ifEquals category "environment"}}
+          <i class="fab fa-pagelines"></i>
           {{else}}
-            <a href="/books/like-book/{{this.book._id}}"> Like </a>
-          {{/if}}
-          <br>
-
-          {{#if this.isInReadBooks}}
-            <a href="/books/unread-book/{{this.book._id}}"> Oops, mistake! </a>
-          {{else}}
-            <a href="/books/read-book/{{this.book._id}}"> Already read! </a>
-          {{/if}}
-
+          <i class="fas fa-venus-double"></i>
+          {{/ifEquals}}
         </div>
       </div>
-
-      <br>
-      <br>
-
       {{/each}}
+
     </div>
 
-    <div class='right-panel'>
+    <div class="user-content">
 
-      <div class='saved-books'>
-        <h2>Saved books</h2>
-        {{#each savedBooks}}
-        <li>
-          <a href="/books/{{this._id}}"> {{this.title}} </a>
-        </li>
-        {{/each}}
+      <div class="user-content_top">
+        <div class="dash-title">
+          <h2>Saved Books</h2>
+        </div>
 
-        </ul>
+        <div class="user-content_cards">
+          {{#if savedBooks}}
+          {{#each savedBooks}}
+          <div class="card">
+            <div class="card-middle">
+              <h3>{{title}}</h3>
+              <p><a class="button-yellow" href="/books/{{_id}}">More info</a></p>
+            </div>
+          </div>
+          {{/each}}
+          {{else}}
+          <div class="card no-books-saved">
+            You have not saved any book yet.
+          </div>
+          {{/if}}
+        </div>
+
       </div>
 
-      <div class='read-books'>
-        <h2>Already read!</h2>
-        {{#each readBooks}}
-        <li>
-          <a href="/books/{{this._id}}"> {{this.title}} </a>
-        </li>
-        {{/each}}
+      <div class="user-content_bottom">
+
+        <div class="dash-title">
+          <h2>Already Read Books</h2>
+        </div>
+
+        <div class="user-content_cards">
+          {{#if readBooks}}
+          {{#each readBooks}}
+          <div class="card">
+            <div class="card-middle">
+              <h3>{{title}}</h3>
+              <p><a class="button-yellow" href="/books/{{_id}}">More info</a></p>
+            </div>
+          </div>
+          {{/each}}
+          {{else}}
+          <div class="card no-books-saved">
+            Select books you've already read!
+          </div>
+          {{/if}}
+        </div>
+
       </div>
 
     </div>
 
   </div>
 </div>
-
-{{!-- {{#each this}}
-    <p> {{this.volumeInfo.title}} </p>
-{{/each}} --}}

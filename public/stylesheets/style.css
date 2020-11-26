@@ -439,7 +439,7 @@ input {
 .header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
   position: relative;
@@ -469,7 +469,35 @@ input {
 
 .main h2 {
   opacity: 0.5;
+  font-weight: 500;
   margin-bottom: 15px;
+}
+
+.dash-top-interest {
+  display: flex;
+  align-items: center;
+}
+
+.dash-top-interest h2 {
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+.dash-top-interest_icon {
+  background: #6C3AC2;
+  color: #fff;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.dash-title {
+  text-decoration: none;
+  color: #000;
 }
 
 .button-purple {
@@ -510,10 +538,24 @@ input {
   margin-left: auto;
   opacity: 0.5;
 }
+
+.card-right i {
+  background: #6C3AC2;
+  color: #fff;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
 .card-middle {
   flex-basis: 300px;
   flex-grow: 1;
 }
+
 .card-middle h4 {
   font-weight: 400;
   font-size: 12px;
@@ -550,6 +592,71 @@ input {
 
 .user-content_bottom {
   margin-top: 30px;
+}
+
+/* BOOKS CSS */
+
+.no-books-saved {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-books-saved h3 {
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.01rem;
+  font-size: 20px;
+}
+
+.no-books-saved h3 a {
+  text-decoration: none;
+  color: #6C3AC2; 
+  border-bottom: 2px solid #6C3AC2; 
+}
+
+.book-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.books-all {
+  display: flex;
+  flex-direction: column;
+}
+
+.books-btns {
+  display: flex;
+  align-items: center;
+  margin-left: -15px;
+}
+
+.books-btns a {
+  margin-left: 15px;
+}
+
+.books-btns i {
+  margin-right: 5px;
+}
+
+.books-btns_selected {
+  background-color: #F4F5F7;
+  color: #6C3AC2;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 20px;
+}
+
+.books-btns_unselected {
+  background-color: #F4F5F7;
+  color: #b5b5b5;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 20px;
 }
 
 /* EVENTS CSS */
@@ -676,44 +783,6 @@ input {
   cursor: pointer;
 }
 
-/* BOOKS CSS */
-
-.book-page {
-  width: 100vw;
-  display: flex;
-}
-
-.new-books {
-  width: 40%;
-  margin: 30px 30px 0 30px;
-}
-
-.book-card {
-  /* background-color: orange; */
-  display: flex;
-  padding: 0 10px;
-}
-
-.book-info {
-  margin-left: 30px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between  */
-}
-
-.right-panel {
-  display:flex;
-  flex-direction: column;
-}
-
-.saved-books, 
-.read-books {
-  margin: 30px 30px 0 30px;
-  background-color: #f7f8fa;
-  width: 40vw;
-  height: 30vh;
-}
-
 /* Pace loader */
 
 .pace {
@@ -797,6 +866,12 @@ input {
 
   .wrapper {
     margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 615px ) {
+  .dash-top-interest_icon {
+    display: none;
   }
 }
 

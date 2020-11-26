@@ -3,6 +3,7 @@
 {{> mainNav active='events' }}
 
 <div class="wrapper">
+
   <div class="header">
     <div class="header-left">
       <button class="burger"><i class="fas fa-bars"></i></button>
@@ -16,8 +17,10 @@
   <div class="main">
 
     <div class="all-cards">
+      <div class="dash-title">
+        <h2>All Events</h2>
+      </div>
 
-      <h2>All events:</h2>
       {{#if mainEvents}}
       {{#each mainEvents}}
       <div class="card">
@@ -32,7 +35,11 @@
           <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
         </div>
         <div class="card-right">
-          <i>Category: {{category}}</i>
+          {{#ifEquals category "environment"}}
+          <i class="fab fa-pagelines"></i>
+          {{else}}
+          <i class="fas fa-venus-double"></i>
+          {{/ifEquals}}
         </div>
       </div>
       {{/each}}
@@ -47,8 +54,9 @@
     <div class="user-content">
 
       <div class="user-content_top">
-
-        <h2>Events you are attending:</h2>
+        <div class="dash-title">
+          <h2>Your Upcoming Events</h2>
+        </div>
 
         <div class="user-content_cards">
           {{#if eventsAttending}}
@@ -63,7 +71,7 @@
           </div>
           {{/each}}
           {{else}}
-          <div class="card-sm_none">
+          <div class="card no-books-saved">
             You are not attending any event.
           </div>
           {{/if}}
@@ -73,7 +81,10 @@
 
       <div class="user-content_bottom">
 
-        <h2>Your events:</h2>
+        <div class="dash-title">
+          <h2>Events Created</h2>
+        </div>
+
         <div class="user-content_cards">
           {{#if eventsCreated}}
           {{#each eventsCreated}}
@@ -87,8 +98,8 @@
           </div>
           {{/each}}
           {{else}}
-          <div class="card">
-            You haven't created any event.
+          <div class="card no-books-saved">
+            Create an event now!
           </div>
           {{/if}}
         </div>

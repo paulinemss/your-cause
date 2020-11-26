@@ -12,7 +12,7 @@
   </div>
   <div class="main">
     <div class='all-cards'>
-      <h2>All events</h2>
+      <h2>Discover Online Events</h2>
       {{#if events}}
       {{#each events}}
       <div class="card">
@@ -38,7 +38,8 @@
       {{/if}}
       <div class="books-all">
 
-        <h2>All saved books</h2>
+        <h2>Your Saved Books</h2>
+        {{#if books}}
         {{#each books}}
         <div class="card">
           <div class="card-middle">
@@ -46,11 +47,13 @@
           </div>
         </div>
         {{/each}}
+        {{else}}
+        {{/if}}
 
       </div>
     </div>
     <div class="user-content">
-      <h2>All news</h2>
+      <h2>Recent News</h2>
       {{#each news}}
       <div class="card">
         <div class="card-middle">

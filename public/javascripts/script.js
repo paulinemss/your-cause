@@ -13,9 +13,9 @@ const burgerButton = document.querySelector('.burger');
 burgerButton.addEventListener('click', function() {
   if (mainNav.style.display === 'none') {
     mainNav.style.display = 'flex';
-    wrapper.style.marginLeft = '300px';
+    wrapper.style.marginLeft = '290px';
     if (window.innerWidth < 800) {
-      wrapper.style.width = 'calc(100% + 300px)';
+      wrapper.style.width = 'calc(100% + 290px)';
     }
   } else {
     mainNav.style.display = 'none';

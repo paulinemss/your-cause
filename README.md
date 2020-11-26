@@ -1,5 +1,5 @@
 <a href="https://yourcause.herokuapp.com/">
-  <img width="100" height="100" src="/public/images/your-cause-rect.png">
+  <img height="100" src="/public/images/your-cause-rect.png">
 </a>
 
 # Your Cause

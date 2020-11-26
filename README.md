@@ -6,11 +6,11 @@
 
 > A simple dashboard that gives you books recommandations, news updates and online events, all in a topic that you care about.
 
-**[- Link to Your Cause app -](https://yourcause.herokuapp.com/)**
+**[- Link to website -](https://yourcause.herokuapp.com/)**
 
 ### What is Your Cause?
 
-From fighting climate change to defending women's rights, we gather everything you need to know about becoming a better activist.
+From fighting climate change to defending women's rights, we gather everything you need to know about becoming a better activist. The application aggregates recent news articles, book recommandations and online events to help activists get connected and inspired. 
 
 ### Portfolio Project
 

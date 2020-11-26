@@ -50,10 +50,24 @@ router.get('/dash', isLoggedIn, (req, res, next) => {
       const events = mainEvents.slice(0, 5);
 
       /* slicing the news array to only show the first 5 */
-      const news = foundNews.items.slice(0, 5);
+      let news = foundNews.items.slice(0, 5);
       
       /* finding all the books the user has saved */
       const books = foundUserWithBooks.savedBooks;
+
+      news = news.map(x => {
+        const d = new Date(x.pubDate);
+
+        return {
+          ...x,
+          pubDate: d.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          })
+        }
+      });
 
       res.render('dash', { user, events, news, books });
     })

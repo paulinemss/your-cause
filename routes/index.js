@@ -47,13 +47,13 @@ router.get('/dash', isLoggedIn, (req, res, next) => {
       const mainEvents = getOnlyInterestingEvents(sortedEvents, user.interest);
 
       /* slicing the events array to only show the first 5 */
-      const events = mainEvents.slice(0, 5);
+      const events = mainEvents.slice(0, 2);
 
       /* slicing the news array to only show the first 5 */
-      let news = foundNews.items.slice(0, 5);
+      let news = foundNews.items.slice(0, 3);
       
       /* finding all the books the user has saved */
-      const books = foundUserWithBooks.savedBooks;
+      const books = foundUserWithBooks.savedBooks.slice(0, 3);
 
       news = news.map(x => {
         const d = new Date(x.pubDate);

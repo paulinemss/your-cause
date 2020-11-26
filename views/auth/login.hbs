@@ -1,57 +1,40 @@
 <div class="frontpage">
-
-   <div class="frontpage_nav">
-
-      <div class="frontpage_logo">
-         <a href="/"><img src="/images/your-cause-rect.png" alt="Your Cause Logo"></a>
-      </div>
-
-      <div class="frontpage_navbar">
-         <ul>
-            {{#if user}}
-            <li><a href="/dash">Dashboard</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-
-            {{else}}
-
-            <li><a class="frontpage_active" href="/auth/login">Login</a></li>
-            <li><a href="/auth/signup">Signup</a></li>
-
-            {{/if}}
-         </ul>
-      </div>
-
-   </div>
-
    <div class="frontpage_auth">
 
       <div class="frontpage_auth-left">
+         <div class="frontpage_logo">
+            <a href="/"><img src="/images/your-cause-rect.png" alt="Your Cause Logo"></a>
+         </div>
 
-         <img src="/images/undraw.png" alt="Image of a woman looking at several different files.">
+         <h1>Welcome back!</h1>
+
+         <form action="/auth/login" method="POST">
+
+            <label for="username">username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">password</label>
+            <input type="password" id="password" name="password" required>
+            {{#if errorMessage}}
+            <div class="auth_error">❌ {{errorMessage}}</div>
+            {{/if}}
+            <div class='auth_btn-row'>
+               <button class="auth_btn" type="submit">Submit</button>
+               <a href="/auth/signup">No account? Sign up instead</a>
+            </div>
+         </form>
+
 
       </div>
 
       <div class="frontpage_auth-right">
-
-         <div class="frontpage_auth-box">
-            <h1>Login</h1>
-
-            <form action="/auth/login" method="POST">
-
-               <label for="username">username</label>
-               <input type="text" id="username" name="username" required>
-
-               <label for="password">password</label>
-               <input type="password" id="password" name="password" required>
-
-               <button class="auth_btn" type="submit">Submit</button>
-            </form>
-
-            {{#if errorMessage}}
-            <div class="auth_error">❌ {{errorMessage}}</div>
-            {{/if}}
-
+         <div class='frontpage_auth-right_copy'>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae erat laoreet, hendrerit metus ac.
          </div>
+         <div class='frontpage_auth-right_color-block a'></div>
+         <div class='frontpage_auth-right_color-block b'></div>
+         <div class='frontpage_auth-right_color-block c'></div>
+         <div class='frontpage_auth-right_color-block d'></div>
       </div>
    </div>
 </div>

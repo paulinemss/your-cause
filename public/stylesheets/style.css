@@ -26,7 +26,7 @@ body {
 
 .wrapper {
   background-color: #f4f5f7;
-  margin-left: 300px;
+  margin-left: 290px;
   padding: 30px;
   min-height: 100vh;
 }
@@ -338,9 +338,9 @@ input {
   justify-content: space-between;
   position: fixed;
   height: 100vh;
-  width: 300px;
+  width: 290px;
   background: #fff;
-  padding: 40px;
+  padding: 30px 40px 40px 40px;
 }
 
 .main-nav a {
@@ -361,13 +361,13 @@ input {
 
 .main-nav__active .main-nav__menu::after {
   content: " "; 
-  width: 8px;
-  height: 8px; 
+  width: 9px;
+  height: 9px; 
   border-radius: 50%; 
   background-color: #6C3AC2; 
   position: absolute;
-  top: 11px;
-  right: -30px; 
+  top: 9px;
+  right: -40px; 
 }
 
 .main-nav__top {
@@ -376,12 +376,11 @@ input {
 }
 
 .main-nav__logo {
-  align-self: center;
   margin-bottom: 30px;
 }
 
 .main-nav__logo img {
-  width: 80px;
+  width: 170px;
   border-radius: 10px;
 }
 
@@ -397,8 +396,24 @@ input {
   list-style-type: none;
 }
 
+.main-nav__menu {
+  margin-left: 15px;
+  font-weight: 500;
+  font-size: 16px;
+  align-self: center;
+}
+
 .main-nav__icon {
-  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+}
+
+.main-nav__icon i {
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  padding: 8px;
 }
 
 /* SCROLLBAR CSS */

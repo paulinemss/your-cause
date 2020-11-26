@@ -588,6 +588,7 @@ input {
 .one-event-btns {
   align-self: flex-end;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .one-event-btns a:last-child {

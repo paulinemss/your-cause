@@ -14,4 +14,4 @@ From fighting climate change to defending women's rights, we gather everything y
 
 ### Portfolio Project
 
-Your Cause is a full stack application built using Express, JavaScript, Handlebars, and connected to MongoDB. This project was made by [Monique de Haard](https://github.com/moniquedehaard) and [Pauline Massé](https://github.com/paulinemss).
+Your Cause is a full stack JavaScript application built using Express, Handlebars, and connected to MongoDB. This project was made by [Monique de Haard](https://github.com/moniquedehaard) and [Pauline Massé](https://github.com/paulinemss).

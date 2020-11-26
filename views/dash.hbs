@@ -9,10 +9,32 @@
       <button class="burger"><i class="fas fa-bars"></i></button>
       <h1>Dashboard</h1>
     </div>
+    <div class="dash-top-interest">
+      <h2>
+        Learn about
+        {{#ifEquals user.interest "environment"}}
+        fighting climate change,
+        {{else}}
+        defending women's rights,
+        {{/ifEquals}}
+        now.
+      </h2>
+      <div class="dash-top-interest_icon">
+        {{#ifEquals user.interest "environment"}}
+        <i class="fab fa-pagelines"></i>
+        {{else}}
+        <i class="fas fa-venus-double"></i>
+        {{/ifEquals}}
+      </div>
+    </div>
   </div>
+
   <div class="main">
+
     <div class='all-cards'>
-      <h2>Discover Online Events</h2>
+      <a class="dash-title" href="/events">
+        <h2>Discover Online Events</h2>
+      </a>
       {{#if events}}
       {{#each events}}
       <div class="card">
@@ -27,33 +49,57 @@
           <p><a class="button-yellow" href="/events/{{_id}}">More info</a></p>
         </div>
         <div class="card-right">
-          <i>Category: {{category}}</i>
+          {{#ifEquals category "environment"}}
+          <i class="fab fa-pagelines"></i>
+          {{else}}
+          <i class="fas fa-venus-double"></i>
+          {{/ifEquals}}
         </div>
       </div>
       {{/each}}
       {{else}}
-      <div class="card-none-lg">
+      <div class="card">
         Create a new event now!
       </div>
       {{/if}}
-      <div class="books-all">
 
-        <h2>Your Saved Books</h2>
+      <div class="books-all">
+        <a class="dash-title" href="/books">
+          <h2>Recently Saved Books</h2>
+        </a>
         {{#if books}}
         {{#each books}}
         <div class="card">
+          <div class="card-left">
+            <img class="book-image" src="{{imageUrl}}" alt="Image of book {{title}}">
+          </div>
           <div class="card-middle">
             <h3>{{title}}</h3>
+            <p><a class="button-yellow" href="/books/{{_id}}">More info</a></p>
+          </div>
+          <div class="card-right">
+            {{#ifEquals category "environment"}}
+            <i class="fab fa-pagelines"></i>
+            {{else}}
+            <i class="fas fa-venus-double"></i>
+            {{/ifEquals}}
           </div>
         </div>
         {{/each}}
         {{else}}
-        {{/if}}
 
+        <div class="card no-books-saved">
+          <h3>You haven't saved any books yet!</h3>
+          <h3>Find our recommandations <a href="/books">here</a></h3>
+        </div>
+        {{/if}}
       </div>
+
     </div>
     <div class="user-content">
-      <h2>Recent News</h2>
+      <a class="dash-title" href="/news">
+        <h2>Recent News</h2>
+      </a>
       {{#each news}}
       <div class="card">
         <div class="card-middle">

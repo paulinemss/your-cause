@@ -46,41 +46,7 @@ router.get('/', isLoggedIn, (req,res,next) => {
 
       // if response is empty array, do running db
       if(!response.length){
-<<<<<<< HEAD
-        //console.log('run db ')
-        Book.updateMany({}, { $set: { storedDate: todayFormatted } })
-        Book.updateMany({}, { $set: { state: todayFormatted } }, {new: true})
-        .then(updatedBooks => {
-          //console.log(updatedBooks)
-          Book
-          .find()
-          .then(resp => {
-            console.log(resp[0].state)
-          })
-          .find({ category: user.interest })
-          .then(books => {
-            //console.log('Results from db: ', books)
-
-            const { savedBooks, readBooks } = user;
-            let modifiedBooks = []
-
-            books.forEach(book => {
-              // WRITE FUNCTION FOR THIS
-              const bookIsSavedBook = savedBooks.filter(el => el.equals(book._id))
-              const bookIsReadBook = readBooks.filter(el => el.equals(book._id))
-              const isInSavedBooks =  bookIsSavedBook.length != 0 ? true : false;
-              const isInReadBooks = bookIsReadBook.length != 0 ? true : false;
-              
-              modifiedBooks.push({
-                book,
-                isInSavedBooks,
-                isInReadBooks
-              })
-            })
-            //console.log(modifiedBooks)
-=======
         console.log('there is no books dated today');
->>>>>>> 71f688edf0099950eb1e004775703a2cda8051a8
 
         Book
           .updateMany({}, { $set: { storedDate: todayFormatted } })

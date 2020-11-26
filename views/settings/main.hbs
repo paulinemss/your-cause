@@ -4,24 +4,72 @@
 
 <div class="wrapper">
 
-  <h1>Settings</h1>
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Settings</h1>
+    </div>
+  </div>
 
-  <h2>{{user.username}}</h2>
-  <img style="height:200px;" src="{{user.profilePic}}" alt="user profile picture">
+  <h2 class='header_settings'> Your profile</h2>
+  <div class='settings_c'>
+    <div class='nav-button'>
+      <a class="button-purple" href="/settings/update-profile">Update profile</a>
+    </div>
 
-  <br>
+    <div class='img-bar'>
+      <img class='profile-img' src="{{user.profilePic}}" alt="user profile picture">
+    </div>
+   
+    <div class="profile-data">
+      
+      <p>username:</p>
+      <h2>{{user.username}}</h2>
 
-  <a href="/settings/update-profile">Update profile</a>
-  <br>
-  <a href="/settings/update-password">Change password</a>
-  <br>
-  <a href="/settings/delete-account">Delete account</a>
+      <br>
+
+      <p>email:</p>
+      <h2>{{user.email}}</h2>
+
+      <br>
+
+      <p> Your interest:</p>
+      {{#ifEquals user.interest "environment"}}
+      <div class='inline-cats'>
+        <div class = 'block-cat selected'>
+          <i class="fab fa-pagelines"></i> CLIMATE CHANGE
+        </div>
+
+        <div class = 'block-cat notselected'>
+          <i class="fas fa-venus-double"></i> WOMEN'S RIGHTS
+        </div>
+      </div>
+
+      {{else}}  
+
+      <div class='inline-cats '>
+        <div class = 'block-cat notselected'>
+          <i class="fab fa-pagelines"></i> CLIMATE CHANGE
+        </div>
+        <div class = 'block-cat selected'>
+          <i class="fas fa-venus-double "></i> WOMEN'S RIGHTS
+        </div>
+      </div>
+      
+      {{/ifEquals}}
+    </div>
+
+    <div class='button-block'>
+      <a class="button-purple-settingpage" href="/settings/update-password">Change password</a>   
+      <a class="button-purple-settingpage" href="/settings/delete-account">Delete account</a>
+    </div>
+  </div>
 
   {{#if messageDelete}}
-  <div>
-    <p>Are you sure you want to delete your account?</p>
-    <form action="/settings/delete-account" method="POST">
-      <button type="submit">Yes, please delete my account.</button>
+  <div class='messageDelete'>
+    <p class='warning-delete'>Are you sure you want to delete your account?</p>
+    <form class='messdel' action="/settings/delete-account" method="POST">
+      <button class='button-grey-settingpage' type="submit">Yes, please delete my account.</button>
     </form>
   </div>
   {{/if}}

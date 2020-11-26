@@ -1,59 +1,94 @@
 {{!-- UPDATE PROFILE PAGE --}}
-
 {{> mainNav active='settings' }}
 
 <div class="wrapper">
 
-  <h1>Update Profile</h1>
+  <div class="header">
+    <div class="header-left">
+      <button class="burger"><i class="fas fa-bars"></i></button>
+      <h1>Update Profile</h1>
+    </div>
+  </div>
 
-  <form action="/settings/update-profile" method="POST" enctype="multipart/form-data">
+  <h2 class='header_settings'>Change your profile</h2>
+  <div class='settings_c'>
 
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" value="{{user.username}}" required>
+    <div class='nav-button'>
+      <a class="button-purple" href="/settings">Back to settings</a>
+    </div>
 
-    <br>
+    <div class='img-bar'>
+      <img class='profile-img' src="{{user.profilePic}}" alt="user profile picture">
+    </div>
+   
+   {{!-- FORM --}}
+    <div class="update-data">
+      <form action="/settings/update-profile" method="POST" enctype="multipart/form-data">
 
-    <label for="email">Email</label>
-    <input type="text" id="email" name="email" value="{{user.email}}" required>
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" value="{{user.username}}" required>
+      
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" value="{{user.email}}" required>
 
-    <br>
+      <label for="profilePic">Profile picture</label>
+      <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
 
-    <label for="profilePic">Profile picture</label>
-    <input type="file" id="profilePic" name="profilePic" accept="image/png, image/jpg">
+      <label for="interest">What do you want to learn?</label>
 
-    <br>
+      {{#if (isSelected 'environment' user.interest)}}
+        <div class="auth_categories_settings">
+          <div class="auth_category">
+            <input type="radio" id="environment" name="interest" value="environment" checked="checked">
+            <label for="environment"><i class="fab fa-pagelines"></i>CLIMATE CHANGE</label>
+          </div>
+          
+          <div class="auth_category">
+            <input type="radio" id="women" name="interest" value="women">
+            <label for="women"><i class="fas fa-venus-double"></i>WOMEN'S RIGHTS</label>
+          </div>
+        </div>
 
-    <label for="interest">Interest</label>
+        {{!-- <input type="radio" id="environment" name="interest" value="environment" checked="checked">
+        <label for="environment">Environmental action</label>
 
-    {{#if (isSelected 'environment' user.interest)}}
+        <input type="radio" id="women" name="interest" value="women">
+        <label for="women">Women's rights</label> --}}
 
-    <input type="radio" id="environment" name="interest" value="environment" checked="checked">
-    <label for="environment">Environmental action</label>
+      {{else}}
+        <div class="auth_categories_settings">
+          <div class="auth_category">
+            <input type="radio" id="environment" name="interest" value="environment">
+            <label for="environment"><i class="fab fa-pagelines"></i>CLIMATE CHANGE</label>
+          </div>
+          
+          <div class="auth_category">
+            <input type="radio" id="women" name="interest" value="women" checked="checked">
+            <label for="women"><i class="fas fa-venus-double"></i>WOMEN'S RIGHTS</label>
+          </div>
+        </div>
 
-    <input type="radio" id="women" name="interest" value="women">
-    <label for="women">Women's rights</label>
+        {{!-- <input type="radio" id="environment" name="interest" value="environment">
+        <label for="environment">Environmental action</label>
 
-    {{else}}
+        <input type="radio" id="women" name="interest" value="women" checked="checked">
+        <label for="women">Women's rights</label> --}}
 
-    <input type="radio" id="environment" name="interest" value="environment">
-    <label for="environment">Environmental action</label>
+      {{/if}}
+    
+      <button class='button-purple-change-settings' type="submit"> Submit </button>
+      </form>
+        {{#if message}}
+        <p class='yes'>{{message}}</p>
+        {{/if}}
+    </div>
+  </div>
 
-    <input type="radio" id="women" name="interest" value="women" checked="checked">
-    <label for="women">Women's rights</label>
-
-    {{/if}}
-
-    <br>
-
-    <button type="submit">Submit</button>
-  </form>
 
   {{#if errorMessage}}
-  <p>{{errorMessage}}</p>
+  <p class='warning'>{{errorMessage}}</p>
   {{/if}}
 
-  {{#if message}}
-  <p>{{message}}</p>
-  {{/if}}
+
 
 </div>

@@ -17,7 +17,7 @@ router.get('/', isLoggedIn, (req, res, next) => {
   parser
     .parseURL(`https://news.google.com/rss/topics/${topic[user.interest]}?hl=en-US&gl=US&ceid=US:en`)
     .then(data => {
-      res.set('Cache-control', 'public, max-age=300')
+      // res.set('Cache-control', 'public, max-age=300')
       res.render('news/feed', { user, data: data.items.slice(0, 20) });
     })
     .catch(err => {

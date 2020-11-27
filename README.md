@@ -4,7 +4,7 @@
 
 # Your Cause
 
-> A simple dashboard that gives you books recommandations, news updates and online events, all in a topic that you care about.
+> A simple dashboard that gives you books recommendations, news updates and online events, all in a topic that you care about.
 
 **[- Link to website -](https://yourcause.herokuapp.com/)**
 

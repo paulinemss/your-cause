@@ -10,7 +10,7 @@
 
 ### What is Your Cause?
 
-From fighting climate change to defending women's rights, we gather everything you need to know about becoming a better activist. The application aggregates recent news articles, book recommandations and online events to help activists get connected and inspired. 
+From fighting climate change to defending women's rights, we gather everything you need to know about becoming a better activist. The application aggregates recent news articles, book recommendations and online events to help activists get connected and inspired. 
 
 ### Portfolio Project
 
